@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proyect_topicos_mobile/view/category.dart';
+import 'package:proyect_topicos_mobile/widgets/category.dart';
 
 class Offer extends StatefulWidget {
   Offer({Key key}) : super(key: key);

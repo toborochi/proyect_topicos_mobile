@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:proyect_topicos_mobile/view/homepage.dart';
-import 'package:proyect_topicos_mobile/view/offer.dart';
+import 'package:proyect_topicos_mobile/widgets/homepage.dart';
+
 
 void main() => runApp(MyApp());
 

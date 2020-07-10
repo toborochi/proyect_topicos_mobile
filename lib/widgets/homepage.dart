@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:proyect_topicos_mobile/view/category.dart';
-import 'package:proyect_topicos_mobile/view/offer.dart';
-import 'package:proyect_topicos_mobile/view/promo.dart';
+import 'package:proyect_topicos_mobile/widgets/offer.dart';
+import 'package:proyect_topicos_mobile/widgets/promo.dart';
+
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
