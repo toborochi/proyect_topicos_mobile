@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proyect_topicos_mobile/widgets/offer.dart';
+import 'package:proyect_topicos_mobile/src/widgets/offer.dart';
 import 'package:proyect_topicos_mobile/widgets/promo.dart';
 
 
