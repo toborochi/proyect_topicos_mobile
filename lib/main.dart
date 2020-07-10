@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proyect_topicos_mobile/widgets/homepage.dart';
+import 'package:proyect_topicos_mobile/src/widgets/homepage.dart';
 
 
 void main() => runApp(MyApp());
