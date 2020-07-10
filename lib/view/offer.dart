@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proyect_topicos_mobile/view/category.dart';
 
-
 class Offer extends StatefulWidget {
   Offer({Key key}) : super(key: key);
 
@@ -12,18 +11,18 @@ class Offer extends StatefulWidget {
 class _OfferState extends State<Offer> {
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-            crossAxisCount: 2,
-            children: <Widget>[
-               Category(),
-               Category(),
-               Category(),
-               Category(),
-               Category(),
-               Category(),
-               Category(),
-               Category(),
-            ],
-        );
+    return SliverGrid.count(
+      crossAxisCount: 2,
+      children: <Widget>[
+        Category(),
+        Category(),
+        Category(),
+        Category(),
+        Category(),
+        Category(),
+        Category(),
+        Category(),
+      ],
+    );
   }
 }

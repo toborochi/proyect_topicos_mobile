@@ -9,11 +9,28 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(title: Text("Barra"),),
-        body: HomePage()
-        )
-    );
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+            appBar: AppBar(
+              title: Text("QVf8Xg4d8rM3u5yYIMScV9wJM3a2"),
+            ),
+            body: HomePage(),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            floatingActionButton: FloatingActionButton(
+              backgroundColor: Colors.black,
+              child: const Icon(Icons.mic),
+              onPressed: () {},
+            ),
+            bottomNavigationBar: new BottomAppBar(
+                notchMargin: 5.0,
+                shape: CircularNotchedRectangle(),
+                color: Colors.grey,
+                child: new Row(children: <Widget>[
+                  Expanded(
+                      child: new SizedBox(
+                    height: 50,
+                  )),
+                ]))));
   }
 }
