@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:proyect_topicos_mobile/authservice.dart';
+import 'package:proyect_topicos_mobile/view/homepage.dart';
+import 'package:proyect_topicos_mobile/view/offer.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,7 +10,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AuthService().handleAuth(),
+      home: Scaffold(
+        appBar: AppBar(title: Text("Barra"),),
+        body: HomePage()
+        )
     );
   }
 }
