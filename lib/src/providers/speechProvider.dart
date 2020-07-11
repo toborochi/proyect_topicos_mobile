@@ -13,11 +13,10 @@ class SpeechRecognizer {
   static SpeechRecognizer _instance = SpeechRecognizer();
   static SpeechRecognizer get instance => _instance;
 
+  LocaleName lang;
   SpeechData _data;
   SpeechToText _stt;
   StreamController<SpeechData> _speechStreamController;
-
-  LocaleName lang;
 
   SpeechData get data => _data;
   Stream<SpeechData> get dataStream => _speechStreamController.stream;

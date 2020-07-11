@@ -14,8 +14,9 @@ class DialogProvider {
     DialogflowApi.DialogflowScope
   ];
 
-  final _responseStreamController =
-      StreamController<GoogleCloudDialogflowV2DetectIntentResponse>.broadcast();
+  StreamController<GoogleCloudDialogflowV2DetectIntentResponse>
+      _responseStreamController;
+
   Stream<GoogleCloudDialogflowV2DetectIntentResponse> get responseStream =>
       _responseStreamController.stream;
 
@@ -24,6 +25,8 @@ class DialogProvider {
   AutoRefreshingAuthClient _client;
 
   init() {
+    _responseStreamController = StreamController<
+        GoogleCloudDialogflowV2DetectIntentResponse>.broadcast();
     rootBundle.loadString('assets/credentials.json').then((string) {
       var json = jsonDecode(string);
       _sessionID = json["client_id"];
@@ -53,7 +56,7 @@ class DialogProvider {
   }
 
   _processResponse(GoogleCloudDialogflowV2DetectIntentResponse res) {
-    if (res.queryResult.action != null) {}
+    _responseStreamController.sink.add(res);
   }
 
   dispose() {

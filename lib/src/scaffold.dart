@@ -12,6 +12,7 @@ class MyScaffold extends StatefulWidget {
 }
 
 class _MyScaffoldState extends State<MyScaffold> {
+  String _lastResult;
   @override
   void initState() {
     super.initState();
@@ -27,7 +28,9 @@ class _MyScaffoldState extends State<MyScaffold> {
 
     SpeechRecognizer.instance.dataStream.listen((data) {
       if (!data.status) {
-        print(data.result);
+        if (_lastResult != data.result) {
+          DialogProvider.instance.detectIntent(_lastResult = data.result);
+        }
         data.status = true;
         SpeechRecognizer.instance.dataSink(data);
       }
