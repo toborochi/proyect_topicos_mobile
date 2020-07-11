@@ -11,32 +11,53 @@ class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
         child: InkWell(
-      onTap: () {},
-      child: ListTile(
-        trailing: Container(
-            margin: EdgeInsets.all(5),
-            child: Stack(
+          onTap: () {},
+          child: ListTile(
+            trailing: Container(
+                margin: EdgeInsets.all(5),
+                child: Stack(
+                  children: <Widget>[
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.network(
+                        'https://pbs.twimg.com/profile_images/609439993094770690/MqfzEbtj.jpg',
+                        height: 200.0,
+                      ),
+                    ),
+                    Positioned(
+                      right: 0.0,
+                      top: 0.0,
+                      child: new Icon(
+                        Icons.star,
+                        color: Colors.orange,
+                        size: 32,
+                      ),
+                    ),
+                  ],
+                )),
+            title: Text(
+              "Item",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.network(
-                    'https://i.pinimg.com/originals/ae/7a/4f/ae7a4f7761d08b346d075ee9d39343bd.jpg',
-                    height: 400.0,
-                  ),
+                Text("Detalle del Producto, blah blah blah"),
+                Text(
+                  "Stock: 20",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
-                Positioned(
-                  right: 0.0,
-                  top: 0.0,
-                  child: new Icon(
-                    Icons.star,
-                    color: Colors.orange,
-                  ),
-                ),
+                Text(
+                  "26 Bs.",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                )
               ],
-            )),
-        title: Text("PRODUCTO"),
-      ),
-    ));
+            ),
+          ),
+        ));
   }
 }

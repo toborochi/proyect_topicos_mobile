@@ -15,6 +15,14 @@ class _ProductsViewState extends State<ProductsView> {
         ProductCard(),
         ProductCard(),
         ProductCard(),
+        ProductCard(),
+        ProductCard(),
+        ProductCard(),
+        ProductCard(),
+        ProductCard(),
+        ProductCard(),
+        ProductCard(),
+        ProductCard(),
     ],);
   }
 }

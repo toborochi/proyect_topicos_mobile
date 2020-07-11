@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:proyect_topicos_mobile/src/providers/dialogflow.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
 
 class MyScaffold extends StatefulWidget {
   MyScaffold({Key key}) : super(key: key);
@@ -39,7 +40,7 @@ class _MyScaffoldState extends State<MyScaffold> {
         appBar: AppBar(
           title: Text("QVf8Xg4d8rM3u5yYIMScV9wJM3a2"),
         ),
-        body: HomePage(),
+        body: ProductsView(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.black,
