@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:proyect_topicos_mobile/src/widgets/homepage.dart';
+import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
             floatingActionButton: FloatingActionButton(
               backgroundColor: Colors.black,
               child: const Icon(Icons.mic),
-              onPressed: () {},
+              onPressed: () {}
             ),
             bottomNavigationBar: new BottomAppBar(
                 notchMargin: 5.0,
