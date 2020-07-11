@@ -52,7 +52,9 @@ class DialogProvider {
         .catchError((e) => print(e.toString()));
   }
 
-  _processResponse(GoogleCloudDialogflowV2DetectIntentResponse res) {}
+  _processResponse(GoogleCloudDialogflowV2DetectIntentResponse res) {
+    if (res.queryResult.action != null) {}
+  }
 
   dispose() {
     _client?.close();
