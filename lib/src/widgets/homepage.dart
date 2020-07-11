@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proyect_topicos_mobile/src/widgets/offer.dart';
-import 'package:proyect_topicos_mobile/widgets/promo.dart';
+import 'package:proyect_topicos_mobile/src/widgets/promo.dart';
 
 
 class HomePage extends StatefulWidget {
