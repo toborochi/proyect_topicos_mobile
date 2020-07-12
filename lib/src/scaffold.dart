@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
+import 'package:proyect_topicos_mobile/src/widgets/offer.dart';
 import 'package:proyect_topicos_mobile/src/widgets/product/product.select.dart';
+import 'package:proyect_topicos_mobile/src/widgets/product_card.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/order_view.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
 import 'package:proyect_topicos_mobile/src/providers/dialogflow.provider.dart';
 
@@ -43,7 +47,7 @@ class _MyScaffoldState extends State<MyScaffold> {
         appBar: AppBar(
           title: Text("QVf8Xg4d8rM3u5yYIMScV9wJM3a2"),
         ),
-        body: ProductSelect(),
+        body: OrderView(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.black,
