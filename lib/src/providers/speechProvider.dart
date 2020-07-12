@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 
+import 'package:audioplayer/audioplayer.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
-
 class SpeechData {
   bool status;
   String result, error;
@@ -53,5 +56,24 @@ class SpeechRecognizer {
 
   dispose() {
     _speechStreamController?.close();
+  }
+}
+
+class Reader {
+
+  static Reader _instance = Reader();
+  static Reader get instance => _instance;
+
+  AudioPlayer _audioPlayer = AudioPlayer();
+  
+  void textToSpeech(String audioContent) async {
+    if (_audioPlayer.state == AudioPlayerState.PLAYING) {
+      await _audioPlayer.stop();
+    }
+    final bytes = Base64Decoder().convert(audioContent, 0, audioContent.length);
+    final dir = await getTemporaryDirectory();
+    final file = File("${dir.path}/wavenet.ogg");
+    await file.writeAsBytes(bytes);
+    await _audioPlayer.play(file.path, isLocal: true);
   }
 }
