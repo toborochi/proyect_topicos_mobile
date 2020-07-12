@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:googleapis_auth/auth_io.dart';
 import 'package:googleapis/dialogflow/v2.dart';
+import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
 
 class DialogProvider {
   static DialogProvider _instance = DialogProvider();
@@ -56,6 +57,7 @@ class DialogProvider {
   }
 
   _processResponse(GoogleCloudDialogflowV2DetectIntentResponse res) {
+    Reader.instance.textToSpeech(res.outputAudio);
     _responseStreamController.sink.add(res);
   }
 

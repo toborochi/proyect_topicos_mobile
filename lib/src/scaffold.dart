@@ -22,8 +22,8 @@ class _MyScaffoldState extends State<MyScaffold> {
     SpeechRecognizer.instance.dataStream.listen((data) {
       if (!data.status) {
         if (_lastResult != data.result) {
-          _lastResult = data.result;
-          print("MUST CALL API");
+          DialogProvider.instance.detectIntent(_lastResult = data.result);
+          print("DEBUG");
         }
         data.status = true;
         SpeechRecognizer.instance.dataSink(data);
@@ -82,10 +82,8 @@ class _MyScaffoldState extends State<MyScaffold> {
                 overflow: TextOverflow.fade,
               );
             }
-            return Icon(
-              snap.hasError ? Icons.error : Icons.record_voice_over,
-              size: size.height * .07
-            );
+            return Icon(snap.hasError ? Icons.error : Icons.record_voice_over,
+                size: size.height * .07);
           },
         ),
       ),
