@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proyect_topicos_mobile/src/providers/dialogflow.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/payment_view.dart';
 
 class MyScaffold extends StatefulWidget {
   MyScaffold({Key key}) : super(key: key);
@@ -35,12 +36,10 @@ class _MyScaffoldState extends State<MyScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      body: Container(
-        color: Colors.orange,
-      ),
+      body: PaymentView(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.mic),
-        onPressed: () {
+        onPressed: () async {
           SpeechRecognizer.instance.speechToText();
           scaffoldKey.currentState.showSnackBar(_snackbar(context));
         },
