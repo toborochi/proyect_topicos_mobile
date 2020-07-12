@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
-import 'package:proyect_topicos_mobile/src/widgets/offer.dart';
-import 'package:proyect_topicos_mobile/src/widgets/product/product.select.dart';
-import 'package:proyect_topicos_mobile/src/widgets/product_card.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/order_view.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/creditcard_view.dart';
 import 'package:proyect_topicos_mobile/src/providers/dialogflow.provider.dart';
 
 class MyScaffold extends StatefulWidget {
@@ -44,13 +39,14 @@ class _MyScaffoldState extends State<MyScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomPadding: false,
         appBar: AppBar(
           title: Text("QVf8Xg4d8rM3u5yYIMScV9wJM3a2"),
         ),
-        body: OrderView(),
+        body: CreditCardView(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.red,
           child: const Icon(Icons.mic),
           onPressed: () {
             // SpeechRecognizer.instance.speechToText();
@@ -59,7 +55,7 @@ class _MyScaffoldState extends State<MyScaffold> {
         bottomNavigationBar: new BottomAppBar(
             notchMargin: 5.0,
             shape: CircularNotchedRectangle(),
-            color: Colors.grey,
+            color: Colors.indigo,
             child: new Row(children: <Widget>[
               Expanded(
                   child: new SizedBox(
