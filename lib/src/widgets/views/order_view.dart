@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proyect_topicos_mobile/src/product_card_order.dart';
+import 'package:proyect_topicos_mobile/src/widgets/product_card_order.dart';
 
 class OrderView extends StatefulWidget {
   @override

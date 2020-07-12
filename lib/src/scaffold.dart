@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/creditcard_view.dart';
+import 'package:proyect_topicos_mobile/src/widgets/creditcard_view.dart';
 import 'package:proyect_topicos_mobile/src/providers/dialogflow.provider.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/payment_view.dart';
 
 class MyScaffold extends StatefulWidget {
   MyScaffold({Key key}) : super(key: key);
@@ -58,11 +59,11 @@ class _MyScaffoldState extends State<MyScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomPadding: true,
         appBar: AppBar(
           title: Text("QVf8Xg4d8rM3u5yYIMScV9wJM3a2"),
         ),
-        body: CreditCardView(),
+        body: PaymentView(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.red,
@@ -75,7 +76,7 @@ class _MyScaffoldState extends State<MyScaffold> {
         bottomNavigationBar: BottomAppBar(
             notchMargin: 5.0,
             shape: CircularNotchedRectangle(),
-            color: Colors.indigo,
+            color: Colors.blue,
             child: new Row(children: <Widget>[
               Expanded(
                   child: SizedBox(
