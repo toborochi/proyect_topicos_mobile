@@ -14,18 +14,15 @@ class SpeechRecognizer {
   static SpeechRecognizer get instance => _instance;
 
   LocaleName lang;
-  SpeechData _data;
-  SpeechToText _stt;
-  StreamController<SpeechData> _speechStreamController;
+  final _data = SpeechData();
+  final _stt = SpeechToText();
+  final _speechStreamController = StreamController<SpeechData>.broadcast();
 
   SpeechData get data => _data;
   Stream<SpeechData> get dataStream => _speechStreamController.stream;
   Function(SpeechData) get dataSink => _speechStreamController.sink.add;
 
   init() {
-    _data = SpeechData();
-    _stt = SpeechToText();
-    _speechStreamController = StreamController<SpeechData>.broadcast();
     _stt.initialize(onError: _onError, onStatus: _onStatus).then((active) {
       if (active) _stt.systemLocale().then((locale) => lang = locale);
     });

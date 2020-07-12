@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
-import 'package:proyect_topicos_mobile/src/widgets/offer.dart';
-import 'package:proyect_topicos_mobile/src/widgets/product/product.select.dart';
-import 'package:proyect_topicos_mobile/src/widgets/product_card.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/order_view.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
+// import 'package:proyect_topicos_mobile/src/widgets/offer.dart';
+// import 'package:proyect_topicos_mobile/src/widgets/product/product.select.dart';
+// import 'package:proyect_topicos_mobile/src/widgets/product_card.dart';
+// import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
+// import 'package:proyect_topicos_mobile/src/widgets/views/order_view.dart';
+// import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
 import 'package:proyect_topicos_mobile/src/providers/dialogflow.provider.dart';
 
 class MyScaffold extends StatefulWidget {
@@ -17,6 +17,23 @@ class MyScaffold extends StatefulWidget {
 
 class _MyScaffoldState extends State<MyScaffold> {
   String _lastResult;
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  final snackbar = SnackBar(
+    backgroundColor: Colors.white70,
+    duration: Duration(seconds: 50),
+    content: StreamBuilder(
+        stream: SpeechRecognizer.instance.dataStream,
+        builder: (_, AsyncSnapshot<SpeechData> snapshot) {
+          print(snapshot.data?.result ?? "...sss");
+          return Text(
+            snapshot.data?.result ?? 'Esperando voz...',
+            style: TextStyle(color: Colors.black),
+            textAlign: TextAlign.right,
+          );
+        }),
+  );
+
   @override
   void initState() {
     super.initState();
@@ -31,12 +48,14 @@ class _MyScaffoldState extends State<MyScaffold> {
     });
 
     SpeechRecognizer.instance.dataStream.listen((data) {
+      print(data.result);
       if (!data.status) {
         if (_lastResult != data.result) {
-          DialogProvider.instance.detectIntent(_lastResult = data.result);
+          // DialogProvider.instance.detectIntent(_lastResult = data.result);
         }
         data.status = true;
         SpeechRecognizer.instance.dataSink(data);
+        scaffoldKey.currentState.removeCurrentSnackBar();
       }
     });
   }
@@ -44,25 +63,29 @@ class _MyScaffoldState extends State<MyScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: scaffoldKey,
         appBar: AppBar(
           title: Text("QVf8Xg4d8rM3u5yYIMScV9wJM3a2"),
         ),
-        body: OrderView(),
+        body: Container(
+          color: Colors.green,
+        ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.black,
-          child: const Icon(Icons.mic),
+          child: Icon(Icons.mic),
           onPressed: () {
-            // SpeechRecognizer.instance.speechToText();
+            SpeechRecognizer.instance.speechToText();
+            scaffoldKey.currentState.showSnackBar(snackbar);
           },
         ),
-        bottomNavigationBar: new BottomAppBar(
+        bottomNavigationBar: BottomAppBar(
             notchMargin: 5.0,
             shape: CircularNotchedRectangle(),
             color: Colors.grey,
-            child: new Row(children: <Widget>[
+            child: Row(children: <Widget>[
               Expanded(
-                  child: new SizedBox(
+                  child: SizedBox(
                 height: 50,
               )),
             ])));
