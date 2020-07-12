@@ -21,7 +21,7 @@ class Product {
   String description;
   String imageUrl;
   String name;
-  String price;
+  double price;
   Promo promo;
   int stock;
 
@@ -32,7 +32,7 @@ class Product {
       description : json["description"],
       imageUrl    : json["image_url"],
       name        : json["name"],
-      price       : json["price"],
+      price       : json["price"].toDouble(),
       promo       : Promo.fromJson(json["promo"]),
       stock       : json["stock"],
     );
@@ -58,13 +58,13 @@ class Promo {
     this.endDate,
   });
 
-  int discount;
+  double discount;
   int endDate;
 
   factory Promo.fromJson(Map<String, dynamic> json) {
     return Promo(
-      discount : json["discount"],
-      endDate  : json["endDate"],
+      discount: json["discount"].toDouble(),
+      endDate : json["endDate"],
     );
   }
 
