@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
-import 'package:proyect_topicos_mobile/src/widgets/creditcard_view.dart';
 import 'package:proyect_topicos_mobile/src/providers/dialogflow.provider.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/payment_view.dart';
+import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
 
 class MyScaffold extends StatefulWidget {
   MyScaffold({Key key}) : super(key: key);
@@ -12,42 +10,19 @@ class MyScaffold extends StatefulWidget {
 }
 
 class _MyScaffoldState extends State<MyScaffold> {
-  String _lastResult;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final snackbar = SnackBar(
-    backgroundColor: Colors.white70,
-    duration: Duration(seconds: 50),
-    content: StreamBuilder(
-        stream: SpeechRecognizer.instance.dataStream,
-        builder: (_, AsyncSnapshot<SpeechData> snapshot) {
-          print(snapshot.data?.result ?? "...sss");
-          return Text(
-            snapshot.data?.result ?? 'Esperando voz...',
-            style: TextStyle(color: Colors.black),
-            textAlign: TextAlign.right,
-          );
-        }),
-  );
-
+  String _lastResult;
   @override
   void initState() {
     super.initState();
     DialogProvider.instance.init();
     SpeechRecognizer.instance.init();
-    this._addListeners();
-  }
-
-  _addListeners() {
-    DialogProvider.instance.responseStream.listen((res) {
-      print(res.queryResult.fulfillmentText);
-    });
-
+    //
     SpeechRecognizer.instance.dataStream.listen((data) {
-      print(data.result);
       if (!data.status) {
         if (_lastResult != data.result) {
-          // DialogProvider.instance.detectIntent(_lastResult = data.result);
+          _lastResult = data.result;
+          print("MUST CALL API");
         }
         data.status = true;
         SpeechRecognizer.instance.dataSink(data);
@@ -59,30 +34,63 @@ class _MyScaffoldState extends State<MyScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomPadding: true,
-        appBar: AppBar(
-          title: Text("QVf8Xg4d8rM3u5yYIMScV9wJM3a2"),
-        ),
-        body: PaymentView(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.red,
-          child: const Icon(Icons.mic),
-          onPressed: () {
-            SpeechRecognizer.instance.speechToText();
-            scaffoldKey.currentState.showSnackBar(snackbar);
+      key: scaffoldKey,
+      body: Container(
+        color: Colors.orange,
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.mic),
+        onPressed: () {
+          SpeechRecognizer.instance.speechToText();
+          scaffoldKey.currentState.showSnackBar(_snackbar(context));
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        notchMargin: 5.0,
+        shape: CircularNotchedRectangle(),
+        color: Colors.indigo,
+        child: Row(children: <Widget>[
+          Expanded(
+              child: SizedBox(
+            height: 50,
+          )),
+        ]),
+      ),
+    );
+  }
+
+  SnackBar _snackbar(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return SnackBar(
+      behavior: SnackBarBehavior.floating,
+      duration: Duration(seconds: 30),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+      ),
+      content: Container(
+        padding: EdgeInsets.all(3),
+        alignment: Alignment.center,
+        height: size.height * .13,
+        child: StreamBuilder(
+          stream: SpeechRecognizer.instance.dataStream,
+          builder: (_, AsyncSnapshot<SpeechData> snap) {
+            if (snap.hasData) {
+              return Text(
+                snap.data.result,
+                style: TextStyle(fontSize: 17),
+                textAlign: TextAlign.justify,
+                overflow: TextOverflow.fade,
+              );
+            }
+            return Icon(
+              snap.hasError ? Icons.error : Icons.record_voice_over,
+              size: size.height * .07
+            );
           },
         ),
-        bottomNavigationBar: BottomAppBar(
-            notchMargin: 5.0,
-            shape: CircularNotchedRectangle(),
-            color: Colors.blue,
-            child: new Row(children: <Widget>[
-              Expanded(
-                  child: SizedBox(
-                height: 50,
-              )),
-            ])));
+      ),
+    );
   }
 
   @override
