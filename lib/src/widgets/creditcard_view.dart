@@ -34,23 +34,36 @@ class _CreditCardViewState extends State<CreditCardView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        CreditCardWidget(
-          cardNumber: cardNumber,
-          expiryDate: expiryDate,
-          cardHolderName: cardHolderName,
-          cvvCode: cvvCode,
-          showBackView: isCvvFocused,
-        ),
-        Expanded(
-          child: SingleChildScrollView(
-            child: CreditCardForm(              
-              onCreditCardModelChange: onCreditCardModelChange,
-            ),
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          CreditCardWidget(
+            cardNumber: cardNumber,
+            expiryDate: expiryDate,
+            cardHolderName: cardHolderName,
+            cvvCode: cvvCode,
+            showBackView: isCvvFocused,
           ),
-        )
-      ],
+          CreditCardForm(
+            onCreditCardModelChange: onCreditCardModelChange,
+          ),
+          ButtonTheme(
+            minWidth: 300,
+            height: 60,
+            child: RaisedButton(
+                color: Colors.lightGreen,
+                child: Text("Continuar",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
+                onPressed: () {},
+                shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(40.0))),
+          ),
+          Container(height: 60),
+        ],
+      ),
     );
   }
 }
