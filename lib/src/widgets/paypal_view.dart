@@ -16,10 +16,7 @@ class _PayPalViewState extends State<PayPalView> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        TextFormField(
-          controller: email,
 
-        ),
         ButtonTheme(
           minWidth: 300,
           height: 60,

@@ -40,7 +40,11 @@ class _MyScaffoldState extends State<MyScaffold> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.mic),
         onPressed: () async {
-          SpeechRecognizer.instance.speechToText();
+          try {
+            SpeechRecognizer.instance.speechToText();
+          } catch (err) {
+            print(err);
+          }
           scaffoldKey.currentState.showSnackBar(_snackbar(context));
         },
       ),
