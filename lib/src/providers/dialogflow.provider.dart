@@ -4,9 +4,15 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:googleapis_auth/auth_io.dart';
 import 'package:googleapis/dialogflow/v2.dart';
+import 'package:provider/provider.dart';
+import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
 
 class DialogProvider {
+
+
+  ActionProvider _provider;
+
   static DialogProvider _instance = DialogProvider();
   static DialogProvider get instance => _instance;
 
@@ -25,12 +31,14 @@ class DialogProvider {
   String _projectID, _sessionID;
   AutoRefreshingAuthClient _client;
 
-  init() {
+  init(ActionProvider p) {
+    this._provider = p;
     _responseStreamController = StreamController<
         GoogleCloudDialogflowV2DetectIntentResponse>.broadcast();
     rootBundle.loadString('assets/credentials.json').then((string) {
       var json = jsonDecode(string);
       _sessionID = json["client_id"];
+      
       _projectID = json["project_id"];
       clientViaServiceAccount(ServiceAccountCredentials.fromJson(json), _scopes)
           .then((client) => _api = DialogflowApi(_client = client))
@@ -58,6 +66,9 @@ class DialogProvider {
 
   _processResponse(GoogleCloudDialogflowV2DetectIntentResponse res) {
     Reader.instance.textToSpeech(res.outputAudio);
+
+    _provider.executeAction(res.queryResult.action);
+
     _responseStreamController.sink.add(res);
   }
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/dialogflow.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/payment_view.dart';
 
 class MyScaffold extends StatefulWidget {
   MyScaffold({Key key}) : super(key: key);
@@ -16,7 +17,14 @@ class _MyScaffoldState extends State<MyScaffold> {
   @override
   void initState() {
     super.initState();
-    DialogProvider.instance.init();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    final view = Provider.of<ActionProvider>(context);
+
+    DialogProvider.instance.init(view);
     SpeechRecognizer.instance.init();
     //
     SpeechRecognizer.instance.dataStream.listen((data) {
@@ -30,13 +38,10 @@ class _MyScaffoldState extends State<MyScaffold> {
         scaffoldKey.currentState.removeCurrentSnackBar();
       }
     });
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      body: PaymentView(),
+      body: view.getWidget(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.mic),
         onPressed: () async {
