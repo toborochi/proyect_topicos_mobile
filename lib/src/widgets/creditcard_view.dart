@@ -37,12 +37,14 @@ class _CreditCardViewState extends State<CreditCardView> {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          CreditCardWidget(
-            cardNumber: cardNumber,
-            expiryDate: expiryDate,
-            cardHolderName: cardHolderName,
-            cvvCode: cvvCode,
-            showBackView: isCvvFocused,
+          SizedBox(
+            child: CreditCardWidget(
+              cardNumber: cardNumber,
+              expiryDate: expiryDate,
+              cardHolderName: cardHolderName,
+              cvvCode: cvvCode,
+              showBackView: isCvvFocused,
+            ),
           ),
           CreditCardForm(
             onCreditCardModelChange: onCreditCardModelChange,
