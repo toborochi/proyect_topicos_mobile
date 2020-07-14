@@ -7,6 +7,7 @@ String productToJson(Product data) => json.encode(data.toJson());
 
 class Product {
   Product({
+    this.id,
     this.category,
     this.code,
     this.description,
@@ -17,7 +18,8 @@ class Product {
     this.stock,
   });
 
-  List<String> category;
+  String id;
+  Map<String, String> category;
   String code;
   String description;
   String imageUrl;
@@ -26,32 +28,32 @@ class Product {
   Promo promo;
   int stock;
 
-  factory Product.fromJson(Map<String, dynamic> data) {
-
+  factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      category    : List<String>(),
-      code        : data["code"],
-      description : data["description"],
-      imageUrl    : data["image_url"],
-      name        : data["name"],
-      price       : double.parse(data["price"]),
-      promo       : Promo.fromJson(data["promo"]),
-      stock       : data["stock"],
+      id: json["id"],
+      category: Map.from(json["category"]).map((k, v) => MapEntry<String, String>(k, v)),
+      code: json["code"],
+      description: json["description"],
+      imageUrl: json["image_url"],
+      name: json["name"],
+      price: double.parse(json["price"]),
+      promo: Promo.fromJson(json["promo"]),
+      stock: json["stock"],
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      "category"    : List<dynamic>.from(category.map((x) => x)),
-      "code"        : code,
-      "description" : description,
-      "image_url"   : imageUrl,
-      "name"        : name,
-      "price"       : price,
-      "promo"       : promo.toJson(),
-      "stock"       : stock,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "category":
+            Map.from(category).map((k, v) => MapEntry<String, dynamic>(k, v)),
+        "code": code,
+        "description": description,
+        "image_url": imageUrl,
+        "name": name,
+        "price": price,
+        "promo": promo.toJson(),
+        "stock": stock,
+      };
 }
 
 class Promo {
@@ -63,17 +65,13 @@ class Promo {
   double discount;
   int endDate;
 
-  factory Promo.fromJson(Map<String, dynamic> json) {
-    return Promo(
-      discount: json["discount"].toDouble(),
-      endDate : json["endDate"],
-    );
-  }
+  factory Promo.fromJson(Map<String, dynamic> json) => Promo(
+        discount: json["discount"].toDouble(),
+        endDate: json["endDate"],
+      );
 
-  Map<String, dynamic> toJson() {
-    return {
-      "discount": discount,
-      "endDate" : endDate,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        "discount": discount,
+        "endDate": endDate,
+      };
 }

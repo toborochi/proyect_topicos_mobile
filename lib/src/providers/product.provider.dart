@@ -9,12 +9,10 @@ class ProductProvider {
   static ProductProvider get instance => _instance;
 
   String url = "https://proyectopicos-efc3c.rj.r.appspot.com/";
-  List<Product> products = List();
+  List<Product> _products = List();
 
-  final _productStreamController =
-      StreamController<List<Product>>.broadcast();
-  Function(List<Product>) get productSink =>
-      _productStreamController.sink.add;
+  final _productStreamController = StreamController<List<Product>>.broadcast();
+  Function(List<Product>) get productSink => _productStreamController.sink.add;
   Stream<List<Product>> get productStream => _productStreamController.stream;
 
   Future<List<Product>> get product async {
@@ -26,9 +24,9 @@ class ProductProvider {
         value["id"] = key;
         tmp.add(Product.fromJson(value));
       });
-
-      productSink(products = tmp);
-      return tmp;
+      print("DEBUG");
+      productSink(_products = tmp);
+      return _products;
     } catch (e) {
       return tmp;
     }
