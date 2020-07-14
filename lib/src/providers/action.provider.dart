@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:googleapis/dialogflow/v2.dart';
 import 'package:proyect_topicos_mobile/src/models/Order.dart';
 import 'package:proyect_topicos_mobile/src/models/Product.dart';
-import 'package:proyect_topicos_mobile/src/widgets/product/product.select.dart';
+import 'package:proyect_topicos_mobile/src/widgets/product.select.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/order_view.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/payment_view.dart';
