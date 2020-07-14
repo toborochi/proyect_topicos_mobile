@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proyect_topicos_mobile/src/widgets/offer.dart';
+import 'package:proyect_topicos_mobile/src/widgets/categorylist.dart';
 import 'package:proyect_topicos_mobile/src/widgets/promo.dart';
 
 
@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
     return CustomScrollView(
       slivers: <Widget>[
         Promos(),
-        Offer()
+        CategoryList()
       ],
     );
   }
