@@ -9,15 +9,15 @@ class CategoryProvider {
   static CategoryProvider get instance => _instance;
 
   String url = "https://proyectopicos-efc3c.rj.r.appspot.com/";
-  List<Category> categories = List();
+  List<Category> _categories = List();
 
   final _categoryStreamController =
       StreamController<List<Category>>.broadcast();
   Function(List<Category>) get categorySink =>
       _categoryStreamController.sink.add;
   Stream<List<Category>> get categoryStream => _categoryStreamController.stream;
-
-  Future<List<Category>> getProducts() async {
+  
+  Future<List<Category>> get categories async {
     List<Category> tmp = List<Category>();
     try {
       final res = await http.get("$url/api/categories");
@@ -26,7 +26,7 @@ class CategoryProvider {
         value["id"] = key;
         tmp.add(Category.fromJson(value));
       });
-      categorySink(categories = tmp);
+      categorySink(_categories = tmp);
       return tmp;
     } catch (e) {
       return tmp;
