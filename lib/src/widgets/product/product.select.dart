@@ -16,7 +16,7 @@ class _ProductViewState extends State<ProductSelect> {
   double _value;
 
   _ProductViewState({this.product}) {
-    this._value = this.product.price * (1 - this.product.promo.discount / 100);
+    this._value = 1* (1 - this.product.promo.discount / 100);
   }
 
   @override

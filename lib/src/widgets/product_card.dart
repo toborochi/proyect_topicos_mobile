@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:transparent_image/transparent_image.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
 
 class ProductCard extends StatefulWidget {
   ProductCard({Key key}) : super(key: key);
@@ -47,18 +50,13 @@ class _ProductCardState extends State<ProductCard> {
                     children: <Widget>[
                       ClipRRect(
                         borderRadius: BorderRadius.circular(8),
-                        child: Image.network(
-                          'https://pbs.twimg.com/profile_images/609439993094770690/MqfzEbtj.jpg',
-                          fit: BoxFit.cover,
-                          width: 80,
-                          height: 80,
-                        ),
+                        child: FadeInImage.memoryNetwork(height: 100,placeholder: kTransparentImage,  image: 'https://pbs.twimg.com/profile_images/609439993094770690/MqfzEbtj.jpg')
                       ),
                       Positioned(
-                        right: 0.0,
-                        top: 0.0,
+                        right: 5,
+                        top: 5,
                         child: new Icon(
-                          Icons.star,
+                          FontAwesome.star,
                           color: Colors.orange,
                           size: 32,
                         ),

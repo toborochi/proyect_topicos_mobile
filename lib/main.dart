@@ -5,7 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:proyect_topicos_mobile/src/scaffold.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/order_detail_view.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/payment_view.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
     // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     Permission.microphone.request().then((value) => print(value.isGranted));
     return ChangeNotifierProvider(
-      create: (_) => ActionProvider(PaymentView()),
+      create: (_) => ActionProvider(OrderDetail()),
       child: MaterialApp(
         title: "ProyecTópicos Mobile",
         debugShowCheckedModeBanner: false,
