@@ -23,7 +23,6 @@ class ActionProvider with ChangeNotifier {
   _setPage(Widget w){
      if(w.runtimeType!=_page.runtimeType){
        _page = w;
-       print("VIEW UPDATED");
      }
   }
 
@@ -35,10 +34,12 @@ class ActionProvider with ChangeNotifier {
       case "get_current_order" : _setPage(OrderView()); break;
       case "get_payment_methods" : _setPage(PaymentView()); break;
       case "get_product" : 
+       _setPage(ProductSelect(/* Datos del producto */ ));
 
-          print(res.parameters);
+       
+        
 
-      ; break;
+       break;
     }
 
     notifyListeners();
