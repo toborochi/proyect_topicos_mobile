@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:proyect_topicos_mobile/src/models/Category.dart';
 import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
+import 'package:proyect_topicos_mobile/src/providers/category.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/dialogflow.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
+// import 'package:proyect_topicos_mobile/src/widgets/category.dart';
 
 class MyScaffold extends StatefulWidget {
   MyScaffold({Key key}) : super(key: key);
@@ -17,31 +20,29 @@ class _MyScaffoldState extends State<MyScaffold> {
   @override
   void initState() {
     super.initState();
+    SpeechRecognizer.instance.init();
+    CategoryProvider.instance.getProducts();
   }
 
   @override
   Widget build(BuildContext context) {
-
     final view = Provider.of<ActionProvider>(context);
 
     DialogProvider.instance.init(view);
-    SpeechRecognizer.instance.init();
     //
     SpeechRecognizer.instance.dataStream.listen((data) {
       if (!data.status) {
         if (_lastResult != data.result) {
           DialogProvider.instance.detectIntent(_lastResult = data.result);
-          print("DEBUG");
         }
         data.status = true;
         SpeechRecognizer.instance.dataSink(data);
         scaffoldKey.currentState.removeCurrentSnackBar();
       }
     });
-
     return Scaffold(
       key: scaffoldKey,
-      body: view.getWidget(),
+      body: _buildList(context),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.mic),
         onPressed: () async {
@@ -97,6 +98,17 @@ class _MyScaffoldState extends State<MyScaffold> {
         ),
       ),
     );
+  }
+
+  Widget _buildList(BuildContext context) {
+    return StreamBuilder(
+        stream: CategoryProvider.instance.categoryStream,
+        builder: (_, AsyncSnapshot<List<Category>> snap) {
+          if (snap.hasData) {
+            return Text(snap.data.toString());
+          }
+          return Text("");
+        });
   }
 
   @override

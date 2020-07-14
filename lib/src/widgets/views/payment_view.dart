@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:proyect_topicos_mobile/src/widgets/creditcard_view.dart';
 import 'package:fluttericon/brandico_icons.dart';
-import 'package:fluttericon/zocial_icons.dart';
+// import 'package:fluttericon/zocial_icons.dart';
 import 'package:proyect_topicos_mobile/src/widgets/paypal_view.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 
