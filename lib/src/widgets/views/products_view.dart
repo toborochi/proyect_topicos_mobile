@@ -21,7 +21,6 @@ class _ProductsViewState extends State<ProductsView> {
 @override
   void initState() {
     super.initState();
-    ProductProvider.instance.product;
   }
   @override
   Widget build(BuildContext context) {
