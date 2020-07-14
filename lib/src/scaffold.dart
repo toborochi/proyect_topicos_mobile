@@ -108,5 +108,7 @@ class _MyScaffoldState extends State<MyScaffold> {
     super.dispose();
     DialogProvider.instance.dispose();
     SpeechRecognizer.instance.dispose();
+    CategoryProvider.instance.dispose();
+    ProductProvider.instance.dispose();
   }
 }

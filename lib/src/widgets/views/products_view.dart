@@ -18,10 +18,6 @@ class _ProductsViewState extends State<ProductsView> {
     return tmp;
   }
 
-@override
-  void initState() {
-    super.initState();
-  }
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(

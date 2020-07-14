@@ -21,7 +21,6 @@ class _CategoryListState extends State<CategoryList> {
 
   @override
   Widget build(BuildContext context) {
-    CategoryProvider.instance.categories;
     return StreamBuilder(
       stream: CategoryProvider.instance.categoryStream,
       builder: (_, AsyncSnapshot<List<Category>> snap) {
@@ -46,6 +45,6 @@ class _CategoryListState extends State<CategoryList> {
   @override
   void dispose() {
     super.dispose();
-    CategoryProvider.instance.dispose();
+    //CategoryProvider.instance.dispose();
   }
 }
