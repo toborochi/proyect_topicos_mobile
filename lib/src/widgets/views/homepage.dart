@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:proyect_topicos_mobile/src/widgets/categorylist.dart';
 import 'package:proyect_topicos_mobile/src/widgets/promo.dart';
 
-
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
 
@@ -13,11 +12,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        Promos(),
-        CategoryList()
-      ],
-    );
+    return CategoryList();
   }
 }

@@ -5,6 +5,7 @@ import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/category.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/dialogflow.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
+import 'package:proyect_topicos_mobile/src/widgets/categorylist.dart';
 // import 'package:proyect_topicos_mobile/src/widgets/category.dart';
 
 class MyScaffold extends StatefulWidget {
