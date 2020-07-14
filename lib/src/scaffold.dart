@@ -4,6 +4,7 @@ import 'package:proyect_topicos_mobile/src/models/Category.dart';
 import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/category.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/dialogflow.provider.dart';
+import 'package:proyect_topicos_mobile/src/providers/product.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
 // import 'package:proyect_topicos_mobile/src/widgets/category.dart';
 
@@ -22,6 +23,7 @@ class _MyScaffoldState extends State<MyScaffold> {
     super.initState();
     SpeechRecognizer.instance.init();
     CategoryProvider.instance.getProducts();
+    ProductProvider.instance.getProducts();
   }
 
   @override
@@ -42,7 +44,7 @@ class _MyScaffoldState extends State<MyScaffold> {
     });
     return Scaffold(
       key: scaffoldKey,
-      body: _buildList(context),
+      body: view.getWidget(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.mic),
         onPressed: () async {

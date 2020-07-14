@@ -26,13 +26,16 @@ class Product {
   int stock;
 
   factory Product.fromJson(Map<String, dynamic> json) {
+
+    Map valueMap = jsonDecode(json["category"]);
+
     return Product(
-      category    : List<String>.from(json["category"].map((x) => x)),
+      category    : List<String>(), // TODO
       code        : json["code"],
       description : json["description"],
       imageUrl    : json["image_url"],
       name        : json["name"],
-      price       : json["price"].toDouble(),
+      price       : double.parse(json["price"]),
       promo       : Promo.fromJson(json["promo"]),
       stock       : json["stock"],
     );

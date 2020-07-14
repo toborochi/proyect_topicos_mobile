@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:proyect_topicos_mobile/src/models/Product.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:fluttericon/font_awesome5_icons.dart';
 
 class ProductCard extends StatefulWidget {
-  ProductCard({Key key}) : super(key: key);
+
+  Product product;
+
+  ProductCard({Key key,this.product}) : super(key: key);
 
   @override
   _ProductCardState createState() => _ProductCardState();
@@ -30,12 +33,12 @@ class _ProductCardState extends State<ProductCard> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("Item",
+                        Text(this.widget.product.name,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20)),
-                        Text("Descripcion del producto"),
-                        Text("Stock: 20"),
-                        Text("40Bs.",
+                        Text(this.widget.product.description),
+                        Text(this.widget.product.stock.toString()),
+                        Text(this.widget.product.price.toString(),
                             style: TextStyle(
                                 color: Colors.black54,
                                 fontWeight: FontWeight.bold,

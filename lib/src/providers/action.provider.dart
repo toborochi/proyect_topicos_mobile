@@ -30,15 +30,15 @@ class ActionProvider with ChangeNotifier {
 
     switch(res.action){
       case "home_page" : _setPage(HomePage()); break;
+
+      case "get_category" : _setPage(ProductsView()); break;
       case "get_promo" : _setPage(ProductsView()); break;
+      case "get_name" : _setPage(ProductsView()); break;
+      
       case "get_current_order" : _setPage(OrderView()); break;
       case "get_payment_methods" : _setPage(PaymentView()); break;
       case "get_product" : 
        _setPage(ProductSelect(/* Datos del producto */ ));
-
-       
-        
-
        break;
     }
 
