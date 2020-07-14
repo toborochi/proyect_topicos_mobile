@@ -2,12 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class Category extends StatefulWidget {
+class CategoryWidget extends StatefulWidget {
   @override
-  _CategoryState createState() => _CategoryState();
+  _CategoryWidgetState createState() => _CategoryWidgetState();
 }
 
-class _CategoryState extends State<Category> {
+class _CategoryWidgetState extends State<CategoryWidget> {
   List colors = [Colors.red, Colors.green, Colors.blue];
   Random random = new Random();
   int ind = 0;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proyect_topicos_mobile/src/widgets/category.dart';
+import 'package:proyect_topicos_mobile/src/widgets/categorywidget.dart';
 
 class Offer extends StatefulWidget {
   Offer({Key key}) : super(key: key);
@@ -14,14 +14,14 @@ class _OfferState extends State<Offer> {
     return SliverGrid.count(
       crossAxisCount: 2,
       children: <Widget>[
-        Category(),
-        Category(),
-        Category(),
-        Category(),
-        Category(),
-        Category(),
-        Category(),
-        Category(),
+        CategoryWidget(),
+        CategoryWidget(),
+        CategoryWidget(),
+        CategoryWidget(),
+        CategoryWidget(),
+        CategoryWidget(),
+        CategoryWidget(),
+        CategoryWidget(),
       ],
     );
   }
