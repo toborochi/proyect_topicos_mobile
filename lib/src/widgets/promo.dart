@@ -10,8 +10,9 @@ class Promos extends StatefulWidget {
 class _PromosState extends State<Promos> {
   @override
   Widget build(BuildContext context) {
-    return SliverToBoxAdapter(child: 
+    return 
     Container(
+        width: double.infinity,
         child: SizedBox.expand(
           child: RaisedButton(
             child: Text(
@@ -21,6 +22,6 @@ class _PromosState extends State<Promos> {
             onPressed: () {},
           ),
         ),
-        height: MediaQuery.of(context).size.width * 0.6));
+        height: MediaQuery.of(context).size.width * 0.6);
   }
 }

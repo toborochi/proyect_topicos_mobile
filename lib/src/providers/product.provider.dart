@@ -17,7 +17,7 @@ class ProductProvider {
       _productStreamController.sink.add;
   Stream<List<Product>> get productStream => _productStreamController.stream;
 
-  Future<List<Product>> getProducts() async {
+  Future<List<Product>> get products async {
     List<Product> tmp = List<Product>();
     try {
       final res = await http.get("$url/api/products");
@@ -26,7 +26,7 @@ class ProductProvider {
         value["id"] = key;
         tmp.add(Product.fromJson(value));
       });
-      
+
       productSink(products = tmp);
       return tmp;
     } catch (e) {
