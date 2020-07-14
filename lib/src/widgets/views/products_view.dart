@@ -10,12 +10,21 @@ class ProductsView extends StatefulWidget {
 
 class _ProductsViewState extends State<ProductsView> {
 
+  List<Widget> _buildList(List<Product> data) {
+    List<Widget> tmp = List<Widget>();
+    data.forEach((item) => tmp.add(ProductCard(
+          product: item,
+        )));
+    return tmp;
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
         stream: ProductProvider.instance.productStream,
         builder: (_,AsyncSnapshot<List<Product>> snapshot) {
-          return Text(snapshot.data.toString());
+            return ListView(children: _buildList(snapshot.data));
+            
         },
     );
   }

@@ -33,12 +33,12 @@ class _ProductCardState extends State<ProductCard> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(this.widget.product.name,
+                        Text(this.widget.product.name, // NOMBRE PREDUCTO
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20)),
-                        Text(this.widget.product.description),
-                        Text(this.widget.product.stock.toString()),
-                        Text(this.widget.product.price.toString(),
+                        Text(this.widget.product.description,style: TextStyle(fontSize: 12)), //  DESCRIPCION
+                        Text('Stock: '+this.widget.product.stock.toString()), // STOCK
+                        Text('Precio: '+this.widget.product.price.toString(), // PRECIO
                             style: TextStyle(
                                 color: Colors.black54,
                                 fontWeight: FontWeight.bold,

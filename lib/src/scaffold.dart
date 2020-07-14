@@ -24,7 +24,7 @@ class _MyScaffoldState extends State<MyScaffold> {
     super.initState();
     SpeechRecognizer.instance.init();
     CategoryProvider.instance.categories;
-    ProductProvider.instance.products;
+    ProductProvider.instance.product;
   }
 
   @override

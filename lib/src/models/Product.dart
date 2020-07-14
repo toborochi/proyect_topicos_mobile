@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+
 Product productFromJson(String str) => Product.fromJson(json.decode(str));
 
 String productToJson(Product data) => json.encode(data.toJson());
@@ -25,19 +26,17 @@ class Product {
   Promo promo;
   int stock;
 
-  factory Product.fromJson(Map<String, dynamic> json) {
-
-    Map valueMap = jsonDecode(json["category"]);
+  factory Product.fromJson(Map<String, dynamic> data) {
 
     return Product(
-      category    : List<String>(), // TODO
-      code        : json["code"],
-      description : json["description"],
-      imageUrl    : json["image_url"],
-      name        : json["name"],
-      price       : double.parse(json["price"]),
-      promo       : Promo.fromJson(json["promo"]),
-      stock       : json["stock"],
+      category    : List<String>(),
+      code        : data["code"],
+      description : data["description"],
+      imageUrl    : data["image_url"],
+      name        : data["name"],
+      price       : double.parse(data["price"]),
+      promo       : Promo.fromJson(data["promo"]),
+      stock       : data["stock"],
     );
   }
 

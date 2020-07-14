@@ -17,7 +17,7 @@ class ProductProvider {
       _productStreamController.sink.add;
   Stream<List<Product>> get productStream => _productStreamController.stream;
 
-  Future<List<Product>> get products async {
+  Future<List<Product>> get product async {
     List<Product> tmp = List<Product>();
     try {
       final res = await http.get("$url/api/products");
