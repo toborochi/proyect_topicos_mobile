@@ -23,8 +23,7 @@ class _ProductsViewState extends State<ProductsView> {
     return StreamBuilder(
         stream: ProductProvider.instance.productStream,
         builder: (_,AsyncSnapshot<List<Product>> snapshot) {
-            return ListView(children: _buildList(snapshot.data));
-            
+            return ListView(children:  _buildList(snapshot?.data ?? []));
         },
     );
   }
