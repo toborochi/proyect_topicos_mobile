@@ -103,6 +103,7 @@ class ActionProvider with ChangeNotifier {
       case "get_product":
         String n = res.parameters["producto"];
         int c = int.tryParse(res.parameters["cantidad"]);
+        Product p;
         if (n.isNotEmpty) {
           for (var i = 0; i < _lastProductList.length; i++) {
             if (_lastProductList[i]
