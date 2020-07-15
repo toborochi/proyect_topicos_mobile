@@ -7,6 +7,7 @@ import 'package:proyect_topicos_mobile/src/providers/category.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/product.provider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/product.select.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/order_detail_view.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/order_view.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/payment_view.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
@@ -73,6 +74,26 @@ class ActionProvider with ChangeNotifier {
           _setPage(ProductsView(products: _lastProductList));
         }
         break;
+      case "manage_order":
+
+        String f = res.parameters["finish"];
+        String c = res.parameters["cancel"];
+        if(f=="finish"){
+            Order o = Order(
+              item: _pedido,
+              date: DateTime.now().millisecond,
+              clientId: "123123",
+              userId : "123456",
+              amount: 700
+            );
+            _setPage(OrderDetail(order: o,));
+        }
+
+        if(c=="cancel"){
+            //NULL
+        }
+
+        break;
       case "get_current_order":
         _setPage(OrderView(cart: _pedido));
         break;
@@ -83,7 +104,6 @@ class ActionProvider with ChangeNotifier {
         String n = res.parameters["producto"];
         int c = int.tryParse(res.parameters["cantidad"]);
         if (n.isNotEmpty) {
-          Product p;
           for (var i = 0; i < _lastProductList.length; i++) {
             if (_lastProductList[i]
                 .name
@@ -103,10 +123,14 @@ class ActionProvider with ChangeNotifier {
                     p.price *
                     ((p.promo != null) ? (1 - p.promo.discount) : 1.0)));
           }
+
+          if (p != null) {
           _setPage(ProductSelect(
             product: p,
           ));
         }
+        }
+        
         break;
     }
 

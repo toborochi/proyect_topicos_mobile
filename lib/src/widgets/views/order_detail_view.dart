@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:proyect_topicos_mobile/src/models/Order.dart';
 import 'package:proyect_topicos_mobile/src/widgets/product_card.dart';
 
 class OrderDetail extends StatefulWidget {
+
+  final Order order;
+  OrderDetail({this.order});
+
   @override
   _OrderDetailState createState() => _OrderDetailState();
 }
@@ -81,4 +86,5 @@ class _OrderDetailState extends State<OrderDetail> {
       ),
     );
   }
+
 }
