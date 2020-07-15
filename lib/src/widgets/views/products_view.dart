@@ -26,7 +26,7 @@ class _ProductsViewState extends State<ProductsView> {
   void initState() {
     super.initState();
     // ProductProvider.instance.byCategory("-MAxNXZRaXXR7KNb9WGe");
-    ProductProvider.instance.byPromo;
+    //ProductProvider.instance.byPromo;
   }
 
   @override

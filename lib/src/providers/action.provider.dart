@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:googleapis/dialogflow/v2.dart';
+import 'package:proyect_topicos_mobile/src/models/Category.dart';
 import 'package:proyect_topicos_mobile/src/models/Order.dart';
 import 'package:proyect_topicos_mobile/src/models/Product.dart';
+import 'package:proyect_topicos_mobile/src/providers/category.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/product.provider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/product.select.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
@@ -36,8 +38,10 @@ class ActionProvider with ChangeNotifier {
         break;
 
       case "get_category":
-        if (res.parameters["category"].toString().isNotEmpty) {
-          ProductProvider.instance.product;
+        String cat = res.parameters["category"].toString();
+        if (cat.isNotEmpty) {
+
+          
           _setPage(ProductsView());
         }
       break;
@@ -58,7 +62,7 @@ class ActionProvider with ChangeNotifier {
         _setPage(PaymentView());
         break;
       case "get_product":
-        
+
         _setPage(ProductSelect(/* Datos del producto */));
         break;
     }
