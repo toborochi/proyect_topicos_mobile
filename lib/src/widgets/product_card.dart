@@ -5,7 +5,7 @@ import 'package:transparent_image/transparent_image.dart';
 
 class ProductCard extends StatefulWidget {
 
-  Product product;
+  final Product product;
 
   ProductCard({Key key,this.product}) : super(key: key);
 
