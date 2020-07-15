@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proyect_topicos_mobile/src/models/Order.dart';
 import 'package:proyect_topicos_mobile/src/widgets/product_card.dart';
+import 'package:proyect_topicos_mobile/src/widgets/product_card_order.dart';
 
 class OrderDetail extends StatefulWidget {
 
@@ -66,10 +67,7 @@ class _OrderDetailState extends State<OrderDetail> {
               ],
             ),
           ),
-          ProductCard(),
-          ProductCard(),
-          ProductCard(),
-          ProductCard(),
+          Column(children: _buildList(this.widget.order.item),),
           Container(
             padding: EdgeInsets.all(16),
             color: Colors.grey[300],
@@ -85,6 +83,17 @@ class _OrderDetailState extends State<OrderDetail> {
         ],
       ),
     );
+  }
+
+
+  List<Widget> _buildList(List<Item> data) {
+    List<Widget> tmp = List<Widget>();
+    data?.forEach((item) {
+      tmp.add(ProductCardOrder(
+        item: item,
+      ));
+    });
+    return tmp;
   }
 
 }

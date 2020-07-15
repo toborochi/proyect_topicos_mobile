@@ -78,7 +78,7 @@ class ActionProvider with ChangeNotifier {
 
         String f = res.parameters["finish"];
         String c = res.parameters["cancel"];
-        if(f=="finish"){
+        if(f.length>0){
             Order o = Order(
               item: _pedido,
               date: DateTime.now().millisecond,
@@ -102,7 +102,7 @@ class ActionProvider with ChangeNotifier {
         break;
       case "get_product":
         String n = res.parameters["producto"];
-        int c = int.tryParse(res.parameters["cantidad"]);
+        int c = int.tryParse(res.parameters["cantidad"].toString());
         Product p;
         if (n.isNotEmpty) {
           for (var i = 0; i < _lastProductList.length; i++) {
