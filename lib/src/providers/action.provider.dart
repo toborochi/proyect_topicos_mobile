@@ -53,12 +53,12 @@ class ActionProvider with ChangeNotifier {
           _lastProductList =
               await ProductProvider.instance.byCategory(categoryID);
 
-          _setPage(ProductsView());
+          _setPage(ProductsView(products: _lastProductList,));
         }
         break;
       case "get_promo":
         _lastProductList = await ProductProvider.instance.byPromo;
-        _setPage(ProductsView());
+        _setPage(ProductsView(products: _lastProductList,));
         break;
 
       case "get_name":
@@ -87,12 +87,16 @@ class ActionProvider with ChangeNotifier {
             }
           }
 
-          if (c != null) {
-            _pedido.add(Item(
-                productAmount: c * p.price,
-                productId: p.id,
-                productQuantity: c,
-                productSalePrice: c * p.price * (1 - p.promo.discount)));
+          if(c!=null){
+            _pedido.add(
+              Item(
+                  productAmount: c*p.price,
+                  productId: p.id,
+                  productQuantity: c, 
+                  productSalePrice: c*p.price*((p.promo!=null)?(1-p.promo.discount):1.0)
+              )
+            );
+
           }
           _setPage(ProductSelect(
             product: p,
