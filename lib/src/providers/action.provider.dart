@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:googleapis/dialogflow/v2.dart';
 import 'package:proyect_topicos_mobile/src/models/Order.dart';
 import 'package:proyect_topicos_mobile/src/models/Product.dart';
+import 'package:proyect_topicos_mobile/src/providers/product.provider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/product.select.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/order_view.dart';
@@ -9,43 +10,59 @@ import 'package:proyect_topicos_mobile/src/widgets/views/payment_view.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
 
 class ActionProvider with ChangeNotifier {
-
   Widget _page;
   Order _order;
+  Stream<List<Product>> _s;
 
-  ActionProvider(this._page){
+  ActionProvider(this._page) {
     _order = Order();
+    _s = ProductProvider.instance.productStream;
   }
 
   getWidget() => _page;
   getOrder() => _order;
+  getProvider() => _s;
 
-  _setPage(Widget w){
-     if(w.runtimeType!=_page.runtimeType){
-       _page = w;
-     }
+  _setPage(Widget w) {
+    if (w.runtimeType != _page.runtimeType) {
+      _page = w;
+    }
   }
 
-  executeAction(GoogleCloudDialogflowV2QueryResult res) {
+  executeAction(GoogleCloudDialogflowV2QueryResult res) async {
+    switch (res.action) {
+      case "home_page":
+        _setPage(HomePage());
+        break;
 
-    switch(res.action){
-      case "home_page" : _setPage(HomePage()); break;
+      case "get_category":
+        if (res.parameters["category"].toString().isNotEmpty) {
+          ProductProvider.instance.product;
+          _setPage(ProductsView());
+        }
+      break;
+      case "get_promo":
+        ProductProvider.instance.byPromo;
+        _setPage(ProductsView());
+        break;
 
-      case "get_category" : _setPage(ProductsView()); break;
-      case "get_promo" : _setPage(ProductsView()); break;
-      case "get_name" : _setPage(ProductsView()); break;
-      
-      case "get_current_order" : _setPage(OrderView()); break;
-      case "get_payment_methods" : _setPage(PaymentView()); break;
-      case "get_product" : 
-       _setPage(ProductSelect(/* Datos del producto */ ));
-       break;
+      case "get_name":
+        ProductProvider.instance.product;
+        _setPage(ProductsView());
+        break;
+
+      case "get_current_order":
+        _setPage(OrderView());
+        break;
+      case "get_payment_methods":
+        _setPage(PaymentView());
+        break;
+      case "get_product":
+        
+        _setPage(ProductSelect(/* Datos del producto */));
+        break;
     }
 
     notifyListeners();
   }
-
-
-
-
 }

@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     Permission.microphone.request().then((value) => print(value.isGranted));
     return ChangeNotifierProvider(
-      create: (_) => ActionProvider(ProductsView()),
+      create: (_) => ActionProvider(HomePage()),
       child: MaterialApp(
         title: "ProyecTópicos Mobile",
         debugShowCheckedModeBanner: false,

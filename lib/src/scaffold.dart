@@ -24,8 +24,6 @@ class _MyScaffoldState extends State<MyScaffold> {
   void initState() {
     super.initState();
     SpeechRecognizer.instance.init();
-    CategoryProvider.instance.categories;
-    ProductProvider.instance.product;
   }
 
   @override
@@ -46,7 +44,7 @@ class _MyScaffoldState extends State<MyScaffold> {
     });
     return Scaffold(
       key: scaffoldKey,
-      body: ProductsView(),
+      body: view.getWidget(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.mic),
         onPressed: () {
