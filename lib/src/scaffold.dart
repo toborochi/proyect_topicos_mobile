@@ -44,7 +44,7 @@ class _MyScaffoldState extends State<MyScaffold> {
     });
     return Scaffold(
       key: scaffoldKey,
-      body: ProductsView(),
+      body: view.getWidget(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.mic),
         onPressed: () {

@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:proyect_topicos_mobile/src/scaffold.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
 
 void main() => runApp(MyApp());
 
