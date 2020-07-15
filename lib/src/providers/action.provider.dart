@@ -65,7 +65,8 @@ class ActionProvider with ChangeNotifier {
         String name = res.parameters["producto"].toString();
         if (name.isNotEmpty) {
           _lastProductList = await ProductProvider.instance.byName(name);
-          _setPage(ProductsView());
+          print("DEBUG");
+          _setPage(ProductsView(products: _lastProductList));
         }
         break;
       case "get_current_order":
@@ -76,7 +77,7 @@ class ActionProvider with ChangeNotifier {
         break;
       case "get_product":
         String n = res.parameters["producto"];
-        int c = int.parse(res.parameters["cantidad"]); 
+        int c = int.parse(res.parameters["cantidad"]);
         if (n.isNotEmpty) {
           Product p;
           for (var i = 0; i < _lastProductList.length; i++) {
@@ -86,16 +87,12 @@ class ActionProvider with ChangeNotifier {
             }
           }
 
-          if(c!=null){
-            _pedido.add(
-              Item(
-                  productAmount: c*p.price,
-                  productId: p.id,
-                  productQuantity: c, 
-                  productSalePrice: c*p.price*(1-p.promo.discount)
-              )
-            );
-
+          if (c != null) {
+            _pedido.add(Item(
+                productAmount: c * p.price,
+                productId: p.id,
+                productQuantity: c,
+                productSalePrice: c * p.price * (1 - p.promo.discount)));
           }
           _setPage(ProductSelect(
             product: p,
