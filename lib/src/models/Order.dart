@@ -19,27 +19,23 @@ class Order {
   List<ShoppingCart> shoppingCart;
   String userId;
 
-  factory Order.fromJson(Map<String, dynamic> json) {
-    return Order(
-      amount      : json["amount"].toDouble(),
-      clientId    : json["clientID"],
-      date        : json["date"],
-      shoppingCart: List<ShoppingCart>.from(
-        json["shopping_cart"].map((x) => ShoppingCart.fromJson(x))
-      ),
-      userId      : json["userID"],
-    );
-  }
+  factory Order.fromJson(Map<String, dynamic> json) => Order(
+        amount: json["amount"].toDouble(),
+        clientId: json["clientID"],
+        date: json["date"],
+        shoppingCart: List<ShoppingCart>.from(
+            json["shopping_cart"].map((x) => ShoppingCart.fromJson(x))),
+        userId: json["userID"],
+      );
 
-  Map<String, dynamic> toJson() {
-    return {
-      "amount"        : amount,
-      "clientID"      : clientId,
-      "date"          : date,
-      "shopping_cart" : List<dynamic>.from(shoppingCart.map((x) => x.toJson())),
-      "userID"        : userId,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        "amount": amount,
+        "clientID": clientId,
+        "date": date,
+        "shopping_cart":
+            List<dynamic>.from(shoppingCart.map((x) => x.toJson())),
+        "userID": userId,
+      };
 }
 
 class ShoppingCart {
@@ -51,25 +47,21 @@ class ShoppingCart {
   });
 
   String productId;
-  int productAmount;
+  double productAmount;
   int productQuantity;
-  int productSalePrice;
+  double productSalePrice;
 
-  factory ShoppingCart.fromJson(Map<String, dynamic> json) {
-    return ShoppingCart(
-      productId       : json["productID"],
-      productAmount   : json["product_amount"],
-      productQuantity : json["product_quantity"],
-      productSalePrice: json["product_sale_price"],
-    );
-  }
+  factory ShoppingCart.fromJson(Map<String, dynamic> json) => ShoppingCart(
+        productId: json["productID"],
+        productAmount: json["product_amount"].toDouble(),
+        productQuantity: json["product_quantity"],
+        productSalePrice: json["product_sale_price"].toDouble(),
+      );
 
-  Map<String, dynamic> toJson() {
-    return {
-      "productID"         : productId,
-      "product_amount"    : productAmount,
-      "product_quantity"  : productQuantity,
-      "product_sale_price": productSalePrice,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        "productID": productId,
+        "product_amount": productAmount,
+        "product_quantity": productQuantity,
+        "product_sale_price": productSalePrice,
+      };
 }
