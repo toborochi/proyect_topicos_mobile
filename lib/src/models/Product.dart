@@ -31,7 +31,7 @@ class Product {
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
       id: json["id"],
-      category: Map.from(json["category"]).map((k, v) => MapEntry<String, String>(k, v)),
+      category: Map<String, String>(), //Map.from(json["category"]).map((k, v) => MapEntry<String, String>(k, v)),
       code: json["code"],
       description: json["description"],
       imageUrl: json["image_url"],

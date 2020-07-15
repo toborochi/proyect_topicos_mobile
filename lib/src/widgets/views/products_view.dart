@@ -4,6 +4,10 @@ import 'package:proyect_topicos_mobile/src/providers/product.provider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/product_card.dart';
 
 class ProductsView extends StatefulWidget {
+
+  final Stream<List<Product>> s;
+  ProductsView({this.s});
+
   @override
   _ProductsViewState createState() => _ProductsViewState();
 }
@@ -19,9 +23,15 @@ class _ProductsViewState extends State<ProductsView> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    ProductProvider.instance.product;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: ProductProvider.instance.productStream,
+        stream: this.widget.s,
         builder: (_,AsyncSnapshot<List<Product>> snapshot) {
             return ListView(children:  _buildList(snapshot?.data ?? []));
         },

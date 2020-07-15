@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:googleapis/dialogflow/v2.dart';
 import 'package:proyect_topicos_mobile/src/models/Order.dart';
 import 'package:proyect_topicos_mobile/src/models/Product.dart';
+import 'package:proyect_topicos_mobile/src/providers/product.provider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/product.select.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/order_view.dart';
@@ -12,6 +13,7 @@ class ActionProvider with ChangeNotifier {
 
   Widget _page;
   Order _order;
+
 
   ActionProvider(this._page){
     _order = Order();
@@ -28,12 +30,14 @@ class ActionProvider with ChangeNotifier {
 
   executeAction(GoogleCloudDialogflowV2QueryResult res) {
 
+      Stream<List<Product>> _s = ProductProvider.instance.productStream;
+
     switch(res.action){
       case "home_page" : _setPage(HomePage()); break;
 
-      case "get_category" : _setPage(ProductsView()); break;
-      case "get_promo" : _setPage(ProductsView()); break;
-      case "get_name" : _setPage(ProductsView()); break;
+      case "get_category" : _setPage(ProductsView(s: _s,)); break;
+      case "get_promo" : _setPage(ProductsView(s: _s,)); break;
+      case "get_name" : _setPage(ProductsView(s: _s,)); break;
       
       case "get_current_order" : _setPage(OrderView()); break;
       case "get_payment_methods" : _setPage(PaymentView()); break;
