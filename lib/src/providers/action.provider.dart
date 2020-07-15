@@ -41,7 +41,15 @@ class ActionProvider with ChangeNotifier {
         String cat = res.parameters["category"].toString();
         if (cat.isNotEmpty) {
 
-          
+          Future<List<Category> > c = CategoryProvider.instance.categories;
+          List<Category> f = await c;
+          String categoryID = "";
+          f.forEach((element) {
+            if(element.name==cat){
+              categoryID=element.id;
+            }
+          });
+          ProductProvider.instance.byCategory(categoryID);
           _setPage(ProductsView());
         }
       break;
@@ -51,10 +59,12 @@ class ActionProvider with ChangeNotifier {
         break;
 
       case "get_name":
-        ProductProvider.instance.product;
-        _setPage(ProductsView());
+      String name = res.parameters["producto"].toString();
+        if(name.isNotEmpty){
+           ProductProvider.instance.byName(name);
+          _setPage(ProductsView());
+        }
         break;
-
       case "get_current_order":
         _setPage(OrderView());
         break;
