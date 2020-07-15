@@ -89,8 +89,8 @@ class ActionProvider with ChangeNotifier {
             _setPage(OrderDetail(order: o,));
         }
 
-        if(c=="cancel"){
-            //NULL
+        if(c.length>0){
+            _pedido.clear();
         }
 
         break;
