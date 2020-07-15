@@ -30,7 +30,7 @@ class ActionProvider with ChangeNotifier {
 
   executeAction(GoogleCloudDialogflowV2QueryResult res) {
 
-      Stream<List<Product>> _s = ProductProvider.instance.productStream;
+    Stream<List<Product>> _s = ProductProvider.instance.productStream;
 
     switch(res.action){
       case "home_page" : _setPage(HomePage()); break;

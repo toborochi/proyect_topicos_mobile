@@ -8,10 +8,9 @@ class ProductProvider {
   static ProductProvider _instance = ProductProvider();
   static ProductProvider get instance => _instance;
 
-  String url = "https://proyectopicos-efc3c.rj.r.appspot.com/";
-  List<Product> _products = List();
-
+  final String url = "https://proyectopicos-efc3c.rj.r.appspot.com/";
   final _productStreamController = StreamController<List<Product>>.broadcast();
+
   Function(List<Product>) get productSink => _productStreamController.sink.add;
   Stream<List<Product>> get productStream => _productStreamController.stream;
 
@@ -24,12 +23,26 @@ class ProductProvider {
         value["id"] = key;
         tmp.add(Product.fromJson(value));
       });
-      print("DEBUG");
-      productSink(_products = tmp);
-      return _products;
+      productSink(tmp);
     } catch (e) {
-      return tmp;
+      print(e);
     }
+    return tmp;
+  }
+
+  Future<List<Product>> get byPromo async {
+    List<Product> tmp = List<Product>();
+    try {
+      final res = await http.get("$url/api/products/promo/get");
+      List data = json.decode(res.body);
+      data?.forEach((item) {
+        tmp.add(Product.fromJson(item));
+      });
+      productSink(tmp);
+    } catch (e) {
+      print(e);
+    }
+    return tmp;
   }
 
   dispose() {

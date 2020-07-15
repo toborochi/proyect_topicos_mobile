@@ -7,6 +7,7 @@ import 'package:proyect_topicos_mobile/src/providers/dialogflow.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/product.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/categorylist.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
 // import 'package:proyect_topicos_mobile/src/widgets/category.dart';
 
 class MyScaffold extends StatefulWidget {
@@ -43,7 +44,7 @@ class _MyScaffoldState extends State<MyScaffold> {
     });
     return Scaffold(
       key: scaffoldKey,
-      body: view.getWidget(),
+      body: ProductsView(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.mic),
         onPressed: () {
