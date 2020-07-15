@@ -3,16 +3,16 @@ import 'package:proyect_topicos_mobile/src/models/Order.dart';
 import 'package:proyect_topicos_mobile/src/widgets/product_card.dart';
 import 'package:proyect_topicos_mobile/src/widgets/product_card_order.dart';
 
-class OrderDetail extends StatefulWidget {
-
+class OrderDetail extends StatelessWidget {
   final Order order;
-  OrderDetail({this.order});
+  const OrderDetail({Key key, this.order}) : super(key: key);
 
-  @override
-  _OrderDetailState createState() => _OrderDetailState();
-}
+  double _total() {
+    double tmp = 0;
+    order.item?.forEach((item) => tmp += item.productAmount);
+    return tmp;
+  }
 
-class _OrderDetailState extends State<OrderDetail> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -67,7 +67,7 @@ class _OrderDetailState extends State<OrderDetail> {
               ],
             ),
           ),
-          Column(children: _buildList(this.widget.order.item),),
+          Column(children: _buildList(order.item),),
           Container(
             padding: EdgeInsets.all(16),
             color: Colors.grey[300],
@@ -76,7 +76,7 @@ class _OrderDetailState extends State<OrderDetail> {
               children: <Widget>[
                 Text("Total: "),
                 Spacer(),
-                Text("Bs. 45")
+                Text("Bs. ${_total()}")
               ],
             )
           )

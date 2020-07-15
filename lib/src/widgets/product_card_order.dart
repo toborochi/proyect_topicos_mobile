@@ -24,7 +24,7 @@ class ProductCardOrder extends StatelessWidget {
                 Container(
                   width: 10,
                 ),
-                Text("${item.productId}",
+                Text("${item.name}",
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 Spacer(),

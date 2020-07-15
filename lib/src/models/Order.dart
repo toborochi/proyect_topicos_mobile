@@ -38,12 +38,14 @@ class Order {
 
 class Item {
   Item({
+    this.name,
     this.productId,
     this.productAmount,
     this.productQuantity,
     this.productSalePrice,
   });
 
+  String name;
   String productId;
   double productAmount;
   int productQuantity;
