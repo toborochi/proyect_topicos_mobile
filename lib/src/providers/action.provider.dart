@@ -13,17 +13,17 @@ import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
 
 class ActionProvider with ChangeNotifier {
   Widget _page;
-  Order _order;
+  List<Item> _pedido;
   Stream<List<Product>> _s;
   List<Product> _lastProductList;
 
   ActionProvider(this._page) {
-    _order = Order();
+    _pedido = List<Item>();
     _s = ProductProvider.instance.productStream;
   }
 
   getWidget() => _page;
-  getOrder() => _order;
+  getOrder() => _pedido;
   getProvider() => _s;
 
   _setPage(Widget w) {
@@ -76,6 +76,7 @@ class ActionProvider with ChangeNotifier {
         break;
       case "get_product":
         String n = res.parameters["producto"];
+        int c = int.parse(res.parameters["cantidad"]); 
         if (n.isNotEmpty) {
           Product p;
           for (var i = 0; i < _lastProductList.length; i++) {
@@ -83,6 +84,18 @@ class ActionProvider with ChangeNotifier {
               p = _lastProductList[i];
               break;
             }
+          }
+
+          if(c!=null){
+            _pedido.add(
+              Item(
+                  productAmount: c*p.price,
+                  productId: p.id,
+                  productQuantity: c, 
+                  productSalePrice: c*p.price*(1-p.promo.discount)
+              )
+            );
+
           }
           _setPage(ProductSelect(
             product: p,
