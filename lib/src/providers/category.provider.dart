@@ -9,7 +9,7 @@ class CategoryProvider {
   static CategoryProvider get instance => _instance;
 
   String url = "https://proyectopicos-efc3c.rj.r.appspot.com/";
-  List<Category> _categories = List();
+  // List<Category> _categories = List();
 
   final _categoryStreamController =
       StreamController<List<Category>>.broadcast();
@@ -26,7 +26,7 @@ class CategoryProvider {
         value["id"] = key;
         tmp.add(Category.fromJson(value));
       });
-      categorySink(_categories = tmp);
+      categorySink(tmp);
       return tmp;
     } catch (e) {
       return tmp;
