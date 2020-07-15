@@ -114,7 +114,6 @@ class ActionProvider with ChangeNotifier {
               break;
             }
           }
-
           if (c != null) {
             _pedido.add(Item(
                 productAmount: c * p.price,
