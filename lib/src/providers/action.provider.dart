@@ -92,7 +92,7 @@ class ActionProvider with ChangeNotifier {
                   productAmount: c*p.price,
                   productId: p.id,
                   productQuantity: c, 
-                  productSalePrice: c*p.price*(1-p.promo.discount)
+                  productSalePrice: c*p.price*((p.promo!=null)?(1-p.promo.discount):1.0)
               )
             );
 
