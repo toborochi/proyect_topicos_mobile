@@ -15,6 +15,7 @@ class ActionProvider with ChangeNotifier {
   Widget _page;
   Order _order;
   Stream<List<Product>> _s;
+  List<Product> _lastProductList;
 
   ActionProvider(this._page) {
     _order = Order();
@@ -40,28 +41,30 @@ class ActionProvider with ChangeNotifier {
       case "get_category":
         String cat = res.parameters["category"].toString();
         if (cat.isNotEmpty) {
-
-          Future<List<Category> > c = CategoryProvider.instance.categories;
+          Future<List<Category>> c = CategoryProvider.instance.categories;
           List<Category> f = await c;
           String categoryID = "";
           f.forEach((element) {
-            if(element.name==cat){
-              categoryID=element.id;
+            if (element.name == cat) {
+              categoryID = element.id;
             }
           });
-          ProductProvider.instance.byCategory(categoryID);
+
+          _lastProductList =
+              await ProductProvider.instance.byCategory(categoryID);
+
           _setPage(ProductsView());
         }
-      break;
+        break;
       case "get_promo":
-        ProductProvider.instance.byPromo;
+        _lastProductList = await ProductProvider.instance.byPromo;
         _setPage(ProductsView());
         break;
 
       case "get_name":
-      String name = res.parameters["producto"].toString();
-        if(name.isNotEmpty){
-           ProductProvider.instance.byName(name);
+        String name = res.parameters["producto"].toString();
+        if (name.isNotEmpty) {
+          _lastProductList = await ProductProvider.instance.byName(name);
           _setPage(ProductsView());
         }
         break;
@@ -72,8 +75,19 @@ class ActionProvider with ChangeNotifier {
         _setPage(PaymentView());
         break;
       case "get_product":
-
-        _setPage(ProductSelect(/* Datos del producto */));
+        String n = res.parameters["producto"];
+        if (n.isNotEmpty) {
+          Product p;
+          for (var i = 0; i < _lastProductList.length; i++) {
+            if (_lastProductList[i].name == n) {
+              p = _lastProductList[i];
+              break;
+            }
+          }
+          _setPage(ProductSelect(
+            product: p,
+          ));
+        }
         break;
     }
 
