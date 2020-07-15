@@ -36,6 +36,10 @@ class ProductProvider {
       final res = await http.get("$url/api/products/promo/get");
       List data = json.decode(res.body);
       data?.forEach((item) {
+        Map m = item["category"];
+        List<String> cats = List();
+        m.forEach((k, v) => cats.add(v));
+        item["category"] = cats;
         tmp.add(Product.fromJson(item));
       });
       productSink(tmp);
@@ -45,6 +49,25 @@ class ProductProvider {
     return tmp;
   }
 
+  Future<List<Product>> byCategory(String categoryID) async {
+    List<Product> tmp = List<Product>();
+    try {
+      final res = await http.get("$url/api/products/category/$categoryID");
+      List data = json.decode(res.body);
+      data?.forEach((item) {
+        Map<String, dynamic> p = Map.from(item);
+        tmp.add(Product.fromJson(p));
+      });
+      productSink(tmp);
+    } catch (e) {
+      print(e);
+    }
+    return tmp;
+  }
+
+  Future<List<Product>> byName(String name) {
+    
+  }
   dispose() {
     _productStreamController?.close();
   }

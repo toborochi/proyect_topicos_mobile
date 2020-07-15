@@ -9,18 +9,20 @@ class ProductsView extends StatefulWidget {
 }
 
 class _ProductsViewState extends State<ProductsView> {
-  
   List<Widget> _buildList(List<Product> data) {
     List<Widget> tmp = List<Widget>();
-    data.forEach((item) => tmp.add(ProductCard(
-          product: item,
-        )));
+    data.forEach((item) {
+      tmp.add(ProductCard(
+        product: item,
+      ));
+    });
     return tmp;
   }
 
   @override
   void initState() {
     super.initState();
+    // ProductProvider.instance.byCategory("-MAxNXZRaXXR7KNb9WGe");
     ProductProvider.instance.byPromo;
   }
 
