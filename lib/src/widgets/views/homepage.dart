@@ -10,10 +10,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-
   @override
   Widget build(BuildContext context) {
-    return CategoryList();
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverToBoxAdapter(
+          child: Promos(),
+        ),
+        CategoryList(),
+      ],
+    );
   }
 }
