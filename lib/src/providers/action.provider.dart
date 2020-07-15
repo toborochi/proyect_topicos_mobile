@@ -53,12 +53,16 @@ class ActionProvider with ChangeNotifier {
           _lastProductList =
               await ProductProvider.instance.byCategory(categoryID);
 
-          _setPage(ProductsView(products: _lastProductList,));
+          _setPage(ProductsView(
+            products: _lastProductList,
+          ));
         }
         break;
       case "get_promo":
         _lastProductList = await ProductProvider.instance.byPromo;
-        _setPage(ProductsView(products: _lastProductList,));
+        _setPage(ProductsView(
+          products: _lastProductList,
+        ));
         break;
 
       case "get_name":
@@ -70,33 +74,34 @@ class ActionProvider with ChangeNotifier {
         }
         break;
       case "get_current_order":
-        _setPage(OrderView());
+        _setPage(OrderView(cart: _pedido));
         break;
       case "get_payment_methods":
         _setPage(PaymentView());
         break;
       case "get_product":
         String n = res.parameters["producto"];
-        int c = int.tryParse(res.parameters["cantidad"]); 
+        int c = int.tryParse(res.parameters["cantidad"]);
         if (n.isNotEmpty) {
           Product p;
           for (var i = 0; i < _lastProductList.length; i++) {
-            if (_lastProductList[i].name.toLowerCase().contains(n.toLowerCase())) {
+            if (_lastProductList[i]
+                .name
+                .toLowerCase()
+                .contains(n.toLowerCase())) {
               p = _lastProductList[i];
               break;
             }
           }
 
-          if(c!=null){
-            _pedido.add(
-              Item(
-                  productAmount: c*p.price,
-                  productId: p.id,
-                  productQuantity: c, 
-                  productSalePrice: c*p.price*((p.promo!=null)?(1-p.promo.discount):1.0)
-              )
-            );
-
+          if (c != null) {
+            _pedido.add(Item(
+                productAmount: c * p.price,
+                productId: p.id,
+                productQuantity: c,
+                productSalePrice: c *
+                    p.price *
+                    ((p.promo != null) ? (1 - p.promo.discount) : 1.0)));
           }
           _setPage(ProductSelect(
             product: p,
