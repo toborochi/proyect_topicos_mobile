@@ -77,11 +77,11 @@ class ActionProvider with ChangeNotifier {
         break;
       case "get_product":
         String n = res.parameters["producto"];
-        int c = int.parse(res.parameters["cantidad"]);
+        int c = int.tryParse(res.parameters["cantidad"]); 
         if (n.isNotEmpty) {
           Product p;
           for (var i = 0; i < _lastProductList.length; i++) {
-            if (_lastProductList[i].name == n) {
+            if (_lastProductList[i].name.toLowerCase().contains(n.toLowerCase())) {
               p = _lastProductList[i];
               break;
             }
