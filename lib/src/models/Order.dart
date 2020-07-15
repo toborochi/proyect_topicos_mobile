@@ -9,22 +9,21 @@ class Order {
     this.amount,
     this.clientId,
     this.date,
-    this.shoppingCart,
+    this.item,
     this.userId,
   });
 
   double amount;
   String clientId;
   int date;
-  List<ShoppingCart> shoppingCart;
+  List<Item> item;
   String userId;
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
         amount: json["amount"].toDouble(),
         clientId: json["clientID"],
         date: json["date"],
-        shoppingCart: List<ShoppingCart>.from(
-            json["shopping_cart"].map((x) => ShoppingCart.fromJson(x))),
+        item: List<Item>.from(json["item"].map((x) => Item.fromJson(x))),
         userId: json["userID"],
       );
 
@@ -32,14 +31,13 @@ class Order {
         "amount": amount,
         "clientID": clientId,
         "date": date,
-        "shopping_cart":
-            List<dynamic>.from(shoppingCart.map((x) => x.toJson())),
+        "item": List<dynamic>.from(item.map((x) => x.toJson())),
         "userID": userId,
       };
 }
 
-class ShoppingCart {
-  ShoppingCart({
+class Item {
+  Item({
     this.productId,
     this.productAmount,
     this.productQuantity,
@@ -51,7 +49,7 @@ class ShoppingCart {
   int productQuantity;
   double productSalePrice;
 
-  factory ShoppingCart.fromJson(Map<String, dynamic> json) => ShoppingCart(
+  factory Item.fromJson(Map<String, dynamic> json) => Item(
         productId: json["productID"],
         productAmount: json["product_amount"].toDouble(),
         productQuantity: json["product_quantity"],
