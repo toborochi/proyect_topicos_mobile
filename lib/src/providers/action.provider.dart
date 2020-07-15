@@ -53,12 +53,12 @@ class ActionProvider with ChangeNotifier {
           _lastProductList =
               await ProductProvider.instance.byCategory(categoryID);
 
-          _setPage(ProductsView());
+          _setPage(ProductsView(products: _lastProductList,));
         }
         break;
       case "get_promo":
         _lastProductList = await ProductProvider.instance.byPromo;
-        _setPage(ProductsView());
+        _setPage(ProductsView(products: _lastProductList,));
         break;
 
       case "get_name":
