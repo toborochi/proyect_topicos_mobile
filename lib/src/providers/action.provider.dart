@@ -65,7 +65,8 @@ class ActionProvider with ChangeNotifier {
         String name = res.parameters["producto"].toString();
         if (name.isNotEmpty) {
           _lastProductList = await ProductProvider.instance.byName(name);
-          _setPage(ProductsView());
+          print("DEBUG");
+          _setPage(ProductsView(products: _lastProductList));
         }
         break;
       case "get_current_order":
