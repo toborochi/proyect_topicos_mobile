@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:proyect_topicos_mobile/src/models/Category.dart';
@@ -10,18 +8,19 @@ class CategoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List colors = [Colors.red, Colors.green, Colors.blue];
-    Random random = new Random();
-    int ind = 0;
-    ind = random.nextInt(3);
     return InkWell(
-          onTap: (){},
-          child: Container(
-            padding: EdgeInsets.all(4),
+      onTap: () {},
+      child: Container(
+          padding: EdgeInsets.all(4),
           color: Color(0xE7DFDD),
           child: Stack(
+            alignment: Alignment.bottomCenter,
             children: <Widget>[
               _productImage(),
+              Text(
+                category.name,
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
             ],
           )),
     );
