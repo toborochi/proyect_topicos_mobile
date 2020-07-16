@@ -19,6 +19,7 @@ class _PromosState extends State<Promos> {
               color: Colors.grey[200],
               padding: EdgeInsets.all(6),
               child: Stack(
+                alignment: Alignment.center,
                 children: <Widget>[
                   CachedNetworkImage(
                       imageUrl:
@@ -29,6 +30,14 @@ class _PromosState extends State<Promos> {
                       },
                       width: double.infinity,
                       fit: BoxFit.scaleDown),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(0,0, 0, 32),
+                    child: Text(
+                      "Promociones",
+                      style:
+                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ],
               ),
             ),
