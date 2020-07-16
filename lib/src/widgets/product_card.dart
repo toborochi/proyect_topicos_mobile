@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
+
 import 'package:fluttericon/font_awesome_icons.dart';
-import 'package:proyect_topicos_mobile/src/models/Product.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:proyect_topicos_mobile/src/models/Product.dart';
 
-class ProductCard extends StatefulWidget {
+class ProductCard extends StatelessWidget {
   final Product product;
+  const ProductCard({Key key, this.product}) : super(key: key);
 
-  ProductCard({Key key, this.product}) : super(key: key);
-
-  @override
-  _ProductCardState createState() => _ProductCardState();
-}
-
-class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -32,16 +27,15 @@ class _ProductCardState extends State<ProductCard> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(this.widget.product.name, // NOMBRE PREDUCTO
+                        Text(this.product.name, // NOMBRE PREDUCTO
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20)),
-                        Text(this.widget.product.description,
-                            style: TextStyle(fontSize: 12)), //  DESCRIPCION
-                        Text('Stock: ' +
-                            this.widget.product.stock.toString()), // STOCK
-                        Text(
-                            'Precio: ' +
-                                this.widget.product.price.toString(), // PRECIO
+                        Text(this.product.description,
+                            style: TextStyle(
+                              fontSize: 12,
+                            )), //  DESCRIPCION
+                        Text('Stock: ${this.product.stock}'), // STOCK
+                        Text('Precio: ${this.product.price}', // PRECIO
                             style: TextStyle(
                                 color: Colors.black54,
                                 fontWeight: FontWeight.bold,
@@ -54,12 +48,14 @@ class _ProductCardState extends State<ProductCard> {
                   padding: EdgeInsets.all(10),
                   child: Stack(
                     children: <Widget>[
+                      //
                       ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: FadeInImage.memoryNetwork(
                               height: 100,
                               placeholder: kTransparentImage,
-                              image: this.widget.product.imageUrl)),
+                              image: this.product.imageUrl)),
+                      //
                       Positioned(
                         right: 5,
                         top: 5,
