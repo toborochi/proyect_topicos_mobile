@@ -25,7 +25,7 @@ class CategoryWidget extends StatelessWidget {
                 imageUrl: category.imageUrl,
                   width: double.infinity,
                   fit: BoxFit.fill,
-              )
+              ),
             ],
           )),
     );
