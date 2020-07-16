@@ -53,15 +53,15 @@ class ActionProvider with ChangeNotifier {
 
           _lastProductList =
               await ProductProvider.instance.byCategory(categoryID);
-
+          print("DEBUG");
           _setPage(ProductsView(
+            products: _lastProductList,
           ));
         }
         break;
       case "get_promo":
         _lastProductList = await ProductProvider.instance.byPromo;
-        _setPage(ProductsView(
-        ));
+        _setPage(ProductsView());
         break;
 
       case "get_name":
@@ -73,22 +73,22 @@ class ActionProvider with ChangeNotifier {
         }
         break;
       case "manage_order":
-
         String f = res.parameters["finish"];
         String c = res.parameters["cancel"];
-        if(f.length>0){
-            Order o = Order(
+        if (f.length > 0) {
+          Order o = Order(
               item: _pedido,
               date: DateTime.now().millisecond,
               clientId: "123123",
-              userId : "123456",
-              amount: 700
-            );
-            _setPage(OrderDetail(order: o,));
+              userId: "123456",
+              amount: 700);
+          _setPage(OrderDetail(
+            order: o,
+          ));
         }
 
-        if(c.length>0){
-            _pedido.clear();
+        if (c.length > 0) {
+          _pedido.clear();
         }
 
         break;
@@ -124,10 +124,10 @@ class ActionProvider with ChangeNotifier {
           }
 
           if (p != null) {
-          _setPage(ProductSelect(
-            product: p,
-          ));
-        }
+            _setPage(ProductSelect(
+              product: p,
+            ));
+          }
         }
         break;
     }
