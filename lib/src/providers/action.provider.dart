@@ -129,10 +129,8 @@ class ActionProvider with ChangeNotifier {
           ));
         }
         }
-        
         break;
     }
-
     notifyListeners();
   }
 }
