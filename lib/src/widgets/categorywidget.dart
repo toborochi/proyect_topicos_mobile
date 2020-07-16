@@ -29,11 +29,11 @@ class CategoryWidget extends StatelessWidget {
 
   Widget _productImage() {
     return category.imageUrl == null
-        ? Image(image: AssetImage('assets\\img\\notFound.jpg'))
+        ? Image(image: AssetImage('assets/notFound.jpg'))
         : CachedNetworkImage(
             imageUrl: category.imageUrl,
             placeholder: (context, url) {
-              return Center(child: Image.asset('assets\\img\\catLoading.gif'));
+              return Center(child: Image.asset('assets/catLoading.gif'));
             },
             width: double.infinity,
             fit: BoxFit.scaleDown);
