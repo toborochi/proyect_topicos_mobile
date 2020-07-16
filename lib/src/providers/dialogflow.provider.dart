@@ -9,8 +9,6 @@ import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
 
 class DialogProvider {
-
-
   ActionProvider _provider;
 
   static DialogProvider _instance = DialogProvider();
@@ -38,8 +36,8 @@ class DialogProvider {
     rootBundle.loadString('assets/credentials.json').then((string) {
       var json = jsonDecode(string);
       _sessionID = json["client_id"];
-      
       _projectID = json["project_id"];
+
       clientViaServiceAccount(ServiceAccountCredentials.fromJson(json), _scopes)
           .then((client) => _api = DialogflowApi(_client = client))
           .catchError((e) => print(e.toString()));
