@@ -33,7 +33,7 @@ class CategoryWidget extends StatelessWidget {
         : CachedNetworkImage(
             imageUrl: category.imageUrl,
             placeholder: (context, url) {
-              return Center(child: Image.asset('assets/catLoading.gif'));
+              return Center(child: Image.asset('assets/img/catLoading.gif'));
             },
             width: double.infinity,
             fit: BoxFit.scaleDown);
