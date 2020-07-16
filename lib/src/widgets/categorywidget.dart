@@ -18,10 +18,10 @@ class CategoryWidget extends StatelessWidget {
           onTap: (){},
           child: Container(
             padding: EdgeInsets.all(4),
-          color: colors[ind],
+          color: Color(0xE7DFDD),
           child: Stack(
             children: <Widget>[
-              _productImage()
+              _productImage(),
             ],
           )),
     );
