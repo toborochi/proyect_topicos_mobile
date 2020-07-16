@@ -1,22 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:proyect_topicos_mobile/src/models/Product.dart';
-import 'package:proyect_topicos_mobile/src/providers/product.provider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/product_card.dart';
 
-class ProductsView extends StatefulWidget {
+class ProductsView extends StatelessWidget {
+  final List<Product> products;
+  const ProductsView({Key key, this.products}) : super(key: key);
 
-  @override
-  _ProductsViewState createState() => _ProductsViewState();
-}
-
-class _ProductsViewState extends State<ProductsView> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: ProductProvider.instance.productStream,
-        builder: (_, AsyncSnapshot<List<Product>> snapshot) {
-          return ListView(children: _buildList(snapshot.data));
-        });
+    return ListView(children: _buildList(this.products));
   }
 
   List<Widget> _buildList(List<Product> data) {

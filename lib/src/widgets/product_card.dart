@@ -4,10 +4,9 @@ import 'package:proyect_topicos_mobile/src/models/Product.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class ProductCard extends StatefulWidget {
-
   final Product product;
 
-  ProductCard({Key key,this.product}) : super(key: key);
+  ProductCard({Key key, this.product}) : super(key: key);
 
   @override
   _ProductCardState createState() => _ProductCardState();
@@ -36,9 +35,13 @@ class _ProductCardState extends State<ProductCard> {
                         Text(this.widget.product.name, // NOMBRE PREDUCTO
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20)),
-                        Text(this.widget.product.description,style: TextStyle(fontSize: 12)), //  DESCRIPCION
-                        Text('Stock: '+this.widget.product.stock.toString()), // STOCK
-                        Text('Precio: '+this.widget.product.price.toString(), // PRECIO
+                        Text(this.widget.product.description,
+                            style: TextStyle(fontSize: 12)), //  DESCRIPCION
+                        Text('Stock: ' +
+                            this.widget.product.stock.toString()), // STOCK
+                        Text(
+                            'Precio: ' +
+                                this.widget.product.price.toString(), // PRECIO
                             style: TextStyle(
                                 color: Colors.black54,
                                 fontWeight: FontWeight.bold,
@@ -52,9 +55,11 @@ class _ProductCardState extends State<ProductCard> {
                   child: Stack(
                     children: <Widget>[
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: FadeInImage.memoryNetwork(height: 100,placeholder: kTransparentImage,  image: 'https://pbs.twimg.com/profile_images/609439993094770690/MqfzEbtj.jpg')
-                      ),
+                          borderRadius: BorderRadius.circular(8),
+                          child: FadeInImage.memoryNetwork(
+                              height: 100,
+                              placeholder: kTransparentImage,
+                              image: this.widget.product.imageUrl)),
                       Positioned(
                         right: 5,
                         top: 5,
