@@ -21,13 +21,23 @@ class CategoryWidget extends StatelessWidget {
           color: colors[ind],
           child: Stack(
             children: <Widget>[
-              CachedNetworkImage(
-                imageUrl: category.imageUrl,
-                  width: double.infinity,
-                  fit: BoxFit.fill,
-              ),
+              _productImage()
             ],
           )),
     );
   }
+
+  Widget _productImage() {
+    return category.imageUrl == null
+        ? Image(image: AssetImage('assets/no-image.png'))
+        : CachedNetworkImage(
+            imageUrl: category.imageUrl,
+            placeholder: (context, url) {
+              return Center(child: Image.asset('assets/catLoading.gif'));
+            },
+            width: double.infinity,
+            fit: BoxFit.scaleDown);
+  }
+
+
 }
