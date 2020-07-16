@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:proyect_topicos_mobile/src/models/Category.dart';
 
@@ -13,24 +14,20 @@ class CategoryWidget extends StatelessWidget {
     Random random = new Random();
     int ind = 0;
     ind = random.nextInt(3);
-    return RaisedButton(
-        shape: ContinuousRectangleBorder(
-          borderRadius: BorderRadius.circular(0),
-        ),
-        color: colors[ind],
-        onPressed: () {},
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              category.name,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.left,
-            )
-          ],
-        ));
+    return InkWell(
+          onTap: (){},
+          child: Container(
+            padding: EdgeInsets.all(4),
+          color: colors[ind],
+          child: Stack(
+            children: <Widget>[
+              CachedNetworkImage(
+                imageUrl: category.imageUrl,
+                  width: double.infinity,
+                  fit: BoxFit.fill,
+              )
+            ],
+          )),
+    );
   }
 }
