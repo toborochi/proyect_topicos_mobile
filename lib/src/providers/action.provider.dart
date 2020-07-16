@@ -54,9 +54,9 @@ class ActionProvider with ChangeNotifier {
           _lastProductList =
               await ProductProvider.instance.byCategory(categoryID);
           print("DEBUG");
-          _setPage(ProductsView(
+          _page = ProductsView(
             products: _lastProductList,
-          ));
+          );
         }
         break;
       case "get_promo":
@@ -69,7 +69,7 @@ class ActionProvider with ChangeNotifier {
         if (name.isNotEmpty) {
           _lastProductList = await ProductProvider.instance.byName(name);
           print("DEBUG");
-          _setPage(ProductsView());
+          _page = ProductsView();
         }
         break;
       case "manage_order":

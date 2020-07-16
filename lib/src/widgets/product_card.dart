@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:proyect_topicos_mobile/src/models/Product.dart';
+import 'package:proyect_topicos_mobile/src/widgets/product_card_order.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class ProductCard extends StatefulWidget {
@@ -75,4 +76,5 @@ class _ProductCardState extends State<ProductCard> {
               ],
             )));
   }
+
 }
