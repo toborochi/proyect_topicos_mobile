@@ -38,7 +38,7 @@ class Product {
         description: json["description"],
         imageUrl: json["image_url"],
         name: json["name"],
-        price: double.parse(json["price"]),
+        price: double.parse(json["price"]).toDouble(),
         promo: Promo.fromJson(json["promo"]),
         stock: json["stock"],
     );
