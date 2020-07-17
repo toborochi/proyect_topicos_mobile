@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:proyect_topicos_mobile/services/authservice.dart';
+import 'package:proyect_topicos_mobile/src/providers/authservice.dart';
 import 'package:proyect_topicos_mobile/src/models/Category.dart';
 import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/category.provider.dart';

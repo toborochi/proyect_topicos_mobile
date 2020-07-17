@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:proyect_topicos_mobile/screens/LoginScreen.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/LoginScreen.dart';
 import 'package:proyect_topicos_mobile/src/scaffold.dart';
 
 class AuthService {
@@ -18,6 +18,11 @@ class AuthService {
         stream: FirebaseAuth.instance.onAuthStateChanged,
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
+            if (uid == null) {
+              FirebaseAuth.instance
+                  .currentUser()
+                  .then((user) => this.uid = user.uid);
+            }
             return MyScaffold(uid: this.uid);
           } else {
             return LoginScreen();

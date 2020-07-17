@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:international_phone_input/international_phone_input.dart';
-import 'package:proyect_topicos_mobile/services/authservice.dart';
+import 'package:proyect_topicos_mobile/src/providers/authservice.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -87,7 +87,7 @@ class LoginScreenState extends State<LoginScreen> {
                           ),
                           onPressed: () {
                             if (codeSent) {
-                              AuthService()
+                              AuthService.instance
                                   .signInWithOTP(smsCode, verificationId);
                             } else {
                               verifyPhone("$phoneIsoCode");
@@ -129,7 +129,7 @@ class LoginScreenState extends State<LoginScreen> {
 
   Future<void> verifyPhone(String phoneNo) async {
     final PhoneVerificationCompleted verified =
-        (AuthCredential authResult) => AuthService().signIn(authResult);
+        (AuthCredential authResult) => AuthService.instance.signIn(authResult);
 
     final PhoneVerificationFailed verificationfailed =
         (AuthException authException) => print('${authException.message}');
