@@ -39,6 +39,11 @@ class ActionProvider with ChangeNotifier {
         _setPage(HomePage());
         break;
 
+
+      case "get_payment_methods":
+        _setPage(PaymentView());
+      break;
+
       case "get_category":
         String cat = res.parameters["category"].toString();
         if (cat.isNotEmpty) {
@@ -54,9 +59,9 @@ class ActionProvider with ChangeNotifier {
           _lastProductList =
               await ProductProvider.instance.byCategory(categoryID);
           print("DEBUG");
-          _setPage(ProductsView(
+          _page = ProductsView(
             products: _lastProductList,
-          ));
+          );
         }
         break;
       case "get_promo":
@@ -69,7 +74,7 @@ class ActionProvider with ChangeNotifier {
         if (name.isNotEmpty) {
           _lastProductList = await ProductProvider.instance.byName(name);
           print("DEBUG");
-          _setPage(ProductsView());
+          _page = ProductsView();
         }
         break;
       case "manage_order":

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluttericon/elusive_icons.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:proyect_topicos_mobile/src/models/Product.dart';
 
 class ProductSelect extends StatefulWidget {
@@ -16,48 +18,58 @@ class _ProductViewState extends State<ProductSelect> {
   double _value;
 
   _ProductViewState({this.product}) {
-    this._value = 1* (1 - this.product.promo.discount / 100);
+    this._value = 1 * (1 - this.product.promo.discount / 100);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Stack(
-          children: <Widget>[
-            Expanded(
-                child: Container(
-              child: CachedNetworkImage(
-                imageUrl: product.imageUrl,
-                width: double.infinity,
-                fit: BoxFit.fill,
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          Stack(
+            children: <Widget>[  
+              Container(
+                child: CachedNetworkImage(
+                  imageUrl: product.imageUrl,
+                  width: double.infinity,
+                  fit: BoxFit.fill,
+                ),
               ),
-            )),
-            Container(
-              alignment: Alignment.topRight,
-              child: Icon(
-                Icons.star,
-                size: 111,
-                color: Colors.yellow,
-              ),  
-            ),
-            Positioned(
-              child: Text(product.promo.discount.toInt().toString() + "%",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19)),
-              top: 47,
-              right: 36,
-            ),
-          ],
-        ),
-        Expanded(
-          child: Container(
-            child: Expanded(child: _productInfo()),
+              (product.promo!=null && product.promo.endDate>=DateTime.now().millisecondsSinceEpoch)?Positioned(
+                  top: 16,
+                  right: 16,
+                  child: Stack(
+                    children: <Widget>[
+                      Icon(
+                        FontAwesome.star,
+                        size: 111,
+                        color: Colors.yellow,
+                      ),
+                      Positioned(
+                        child: Text(
+                            _calcPromo(product.promo.discount * 100) + "%", 
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 19)),
+                        top: 47,
+                        right: 36,
+                      ),
+                    ],
+                  )):Container()
+            ],
+          ),
+          Container(
+            child: _productInfo(),
             padding: EdgeInsets.fromLTRB(30, 20, 30, 10),
             color: Colors.white,
           ),
-        ),
-      ],
+        ],
+      ),
     );
+  }
+
+  String _calcPromo(double p) {
+    int pint = p.toInt();
+    return pint.toString();
   }
 
   Widget _productInfo() {
@@ -126,7 +138,9 @@ class _ProductViewState extends State<ProductSelect> {
               ),
             ),
           ),
-          SizedBox(width: 15,),
+          SizedBox(
+            width: 15,
+          ),
           FloatingActionButton(
               child: Icon(Icons.add),
               backgroundColor: Colors.orange,
@@ -147,7 +161,7 @@ class _ProductViewState extends State<ProductSelect> {
         ),
         child: Center(
           child: Text(
-            "$_value Bs",
+            _value.toStringAsFixed(2) + "Bs",
             style: TextStyle(
                 fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
           ),
