@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proyect_topicos_mobile/src/models/Order.dart';
-import 'package:proyect_topicos_mobile/src/widgets/product_card.dart';
+// import 'package:proyect_topicos_mobile/src/widgets/product_card.dart';
 import 'package:proyect_topicos_mobile/src/widgets/product_card_order.dart';
 
 class OrderDetail extends StatelessWidget {

@@ -16,12 +16,10 @@ class AuthService {
   handleAuth() {
     return StreamBuilder(
         stream: FirebaseAuth.instance.onAuthStateChanged,
-        builder: (BuildContext context, snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot) {
           if (snapshot.hasData) {
             if (uid == null) {
-              FirebaseAuth.instance
-                  .currentUser()
-                  .then((user) => this.uid = user.uid);
+              this.uid = snapshot.data.uid;
             }
             return MyScaffold(uid: this.uid);
           } else {

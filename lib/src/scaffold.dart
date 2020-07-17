@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/authservice.dart';
-import 'package:proyect_topicos_mobile/src/models/Category.dart';
+// import 'package:proyect_topicos_mobile/src/models/Category.dart';
 import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/category.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/dialogflow.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/product.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
-import 'package:proyect_topicos_mobile/src/widgets/categorylist.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
+// import 'package:proyect_topicos_mobile/src/widgets/categorylist.dart';
+// import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
+// import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
 // import 'package:proyect_topicos_mobile/src/widgets/category.dart';
 
 class MyScaffold extends StatefulWidget {
-  String uid;
+  final String uid;
   MyScaffold({Key key, this.uid}) : super(key: key);
 
   @override
