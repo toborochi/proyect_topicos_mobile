@@ -29,13 +29,13 @@ class DialogProvider {
   String _projectID, _sessionID;
   AutoRefreshingAuthClient _client;
 
-  init(ActionProvider p) {
+  init(ActionProvider p, String sessionID) {
     this._provider = p;
     _responseStreamController = StreamController<
         GoogleCloudDialogflowV2DetectIntentResponse>.broadcast();
     rootBundle.loadString('assets/credentials.json').then((string) {
       var json = jsonDecode(string);
-      _sessionID = json["client_id"];
+      _sessionID = sessionID;
       _projectID = json["project_id"];
 
       clientViaServiceAccount(ServiceAccountCredentials.fromJson(json), _scopes)

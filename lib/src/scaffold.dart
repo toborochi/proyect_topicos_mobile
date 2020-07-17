@@ -26,6 +26,8 @@ class _MyScaffoldState extends State<MyScaffold> {
   @override
   void initState() {
     super.initState();
+    ProductProvider.instance.init();
+    CategoryProvider.instance.init();
     SpeechRecognizer.instance.init();
   }
 
@@ -33,7 +35,7 @@ class _MyScaffoldState extends State<MyScaffold> {
   Widget build(BuildContext context) {
     final view = Provider.of<ActionProvider>(context);
 
-    DialogProvider.instance.init(view);
+    DialogProvider.instance.init(view, this.widget.uid);
     //
     SpeechRecognizer.instance.dataStream.listen((data) {
       if (!data.status) {
@@ -119,8 +121,8 @@ class _MyScaffoldState extends State<MyScaffold> {
   void dispose() {
     super.dispose();
     DialogProvider.instance.dispose();
-    SpeechRecognizer.instance.dispose();
-    CategoryProvider.instance.dispose();
     ProductProvider.instance.dispose();
+    CategoryProvider.instance.dispose();
+    SpeechRecognizer.instance.dispose();
   }
 }

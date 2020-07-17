@@ -8,11 +8,15 @@ class ProductProvider {
   static ProductProvider _instance = ProductProvider();
   static ProductProvider get instance => _instance;
 
+  StreamController<List<Product>> _productStreamController;
   final String url = "https://proyectopicos-efc3c.rj.r.appspot.com/";
-  final _productStreamController = StreamController<List<Product>>.broadcast();
 
   Function(List<Product>) get productSink => _productStreamController.sink.add;
   Stream<List<Product>> get productStream => _productStreamController.stream;
+
+  init() {
+    _productStreamController = StreamController<List<Product>>.broadcast();
+  }
 
   Future<List<Product>> get product async {
     List<Product> tmp = List<Product>();
