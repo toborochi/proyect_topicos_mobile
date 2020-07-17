@@ -39,10 +39,50 @@ class ActionProvider with ChangeNotifier {
         _setPage(HomePage());
         break;
 
+      case "delete_product":
+        String name = res.parameters["producto"].toString();
+        if (name.isNotEmpty) {
+          _pedido.removeWhere(
+              (item) => item.name.toLowerCase().contains(name.toLowerCase()));
+        }
 
+        break;
+      case "edit_product":
+        String name = res.parameters["producto"].toString();
+        int c = int.tryParse(res.parameters["cantidad"].toString());
+        if (name.isNotEmpty) {
+
+              Future<List<Product>> cc = ProductProvider.instance.byName(name);
+              List<Product> f = await cc;
+
+              Product p = f.firstWhere((element) => element.name.toLowerCase().contains(name));
+
+          if (p != null) {
+            _setPage(ProductSelect(
+              product: p,
+            ));
+          }
+          if (c != null && p != null) {
+            for (int i = 0; i < _pedido.length; ++i) {
+              if (_pedido[i]
+                  .name
+                  .toLowerCase()
+                  .contains(p.name.toLowerCase())) {
+                if (c == 0) {
+                  _pedido.removeWhere((item) =>
+                      item.name.toLowerCase().contains(name.toLowerCase()));
+                }else{
+                  _pedido[i].productQuantity = c;
+                }
+              }
+            }
+          }
+        }
+
+        break;
       case "get_payment_methods":
         _setPage(PaymentView());
-      break;
+        break;
 
       case "get_category":
         String cat = res.parameters["category"].toString();
