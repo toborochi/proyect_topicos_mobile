@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:proyect_topicos_mobile/screens/dashboard.dart';
 import 'package:proyect_topicos_mobile/screens/LoginScreen.dart';
 import 'package:proyect_topicos_mobile/src/scaffold.dart';
 
 class AuthService {
+  static AuthService _instance = AuthService();
+  static AuthService get instance => _instance;
+
   //Handles Auth
   handleAuth() {
     return StreamBuilder(
@@ -29,8 +31,7 @@ class AuthService {
   }
 
   signInWithOTP(smsCode, verId) {
-    AuthCredential authCreds = PhoneAuthProvider.getCredential(
-        verificationId: verId, smsCode: smsCode);
-    signIn(authCreds);
+    signIn(PhoneAuthProvider.getCredential(
+        verificationId: verId, smsCode: smsCode));
   }
 }

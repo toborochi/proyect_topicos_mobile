@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:proyect_topicos_mobile/services/authservice.dart';
 import 'package:proyect_topicos_mobile/src/models/Category.dart';
 import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/category.provider.dart';
@@ -45,6 +46,15 @@ class _MyScaffoldState extends State<MyScaffold> {
     });
     return Scaffold(
       key: scaffoldKey,
+      appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.person_outline),
+              onPressed: () {
+                AuthService().signOut();
+              })
+        ],
+      ),
       body: view.getWidget(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.mic),
