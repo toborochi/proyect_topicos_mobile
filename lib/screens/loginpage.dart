@@ -85,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
 
     await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: phoneNo,
-        timeout: const Duration(seconds: 5),
+        timeout: const Duration(seconds: 60),
         verificationCompleted: verified,
         verificationFailed: verificationfailed,
         codeSent: smsSent,

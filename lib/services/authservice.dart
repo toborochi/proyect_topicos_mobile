@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:proyect_topicos_mobile/screens/dashboard.dart';
-import 'package:proyect_topicos_mobile/screens/loginpage.dart';
+import 'package:proyect_topicos_mobile/screens/LoginScreen.dart';
+import 'package:proyect_topicos_mobile/src/scaffold.dart';
 
 class AuthService {
   //Handles Auth
@@ -10,9 +11,9 @@ class AuthService {
         stream: FirebaseAuth.instance.onAuthStateChanged,
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
-            return DashboardPage();
+            return MyScaffold();
           } else {
-            return LoginPage();
+            return LoginScreen();
           }
         });
   }
