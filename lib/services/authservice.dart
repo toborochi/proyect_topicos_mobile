@@ -7,13 +7,18 @@ class AuthService {
   static AuthService _instance = AuthService();
   static AuthService get instance => _instance;
 
+  String uid;
+
+  AuthService() {
+    FirebaseAuth.instance.currentUser().then((user) => this.uid = user.uid);
+  }
   //Handles Auth
   handleAuth() {
     return StreamBuilder(
         stream: FirebaseAuth.instance.onAuthStateChanged,
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
-            return MyScaffold();
+            return MyScaffold(uid: this.uid);
           } else {
             return LoginScreen();
           }

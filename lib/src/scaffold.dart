@@ -13,7 +13,8 @@ import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
 // import 'package:proyect_topicos_mobile/src/widgets/category.dart';
 
 class MyScaffold extends StatefulWidget {
-  MyScaffold({Key key}) : super(key: key);
+  String uid;
+  MyScaffold({Key key, this.uid}) : super(key: key);
 
   @override
   _MyScaffoldState createState() => _MyScaffoldState();
@@ -47,6 +48,7 @@ class _MyScaffoldState extends State<MyScaffold> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
+        title: Center(child: Text(this.widget.uid)),
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.person_outline),
