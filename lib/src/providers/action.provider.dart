@@ -39,6 +39,11 @@ class ActionProvider with ChangeNotifier {
         _setPage(HomePage());
         break;
 
+
+      case "get_payment_methods":
+        _setPage(PaymentView());
+      break;
+
       case "get_category":
         String cat = res.parameters["category"].toString();
         if (cat.isNotEmpty) {

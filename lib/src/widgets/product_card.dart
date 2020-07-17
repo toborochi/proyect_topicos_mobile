@@ -56,6 +56,8 @@ class ProductCard extends StatelessWidget {
                               placeholder: kTransparentImage,
                               image: this.product.imageUrl)),
                       //
+                      ((this.product.promo!=null && this.product.promo.endDate>=DateTime.now().millisecondsSinceEpoch)?
+
                       Positioned(
                         right: 5,
                         top: 5,
@@ -64,7 +66,7 @@ class ProductCard extends StatelessWidget {
                           color: Colors.orange,
                           size: 32,
                         ),
-                      ),
+                      ):Container())
                     ],
                   ),
                 ),
