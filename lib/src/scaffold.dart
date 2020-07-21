@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:proyect_topicos_mobile/src/models/Category.dart';
+import 'package:proyect_topicos_mobile/src/providers/authservice.dart';
+// import 'package:proyect_topicos_mobile/src/models/Category.dart';
 import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/category.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/dialogflow.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/product.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
-import 'package:proyect_topicos_mobile/src/widgets/categorylist.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
+// import 'package:proyect_topicos_mobile/src/widgets/categorylist.dart';
+// import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
+// import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
 // import 'package:proyect_topicos_mobile/src/widgets/category.dart';
 
 class MyScaffold extends StatefulWidget {
-  MyScaffold({Key key}) : super(key: key);
+  final String uid;
+  MyScaffold({Key key, this.uid}) : super(key: key);
 
   @override
   _MyScaffoldState createState() => _MyScaffoldState();
@@ -24,6 +26,8 @@ class _MyScaffoldState extends State<MyScaffold> {
   @override
   void initState() {
     super.initState();
+    ProductProvider.instance.init();
+    CategoryProvider.instance.init();
     SpeechRecognizer.instance.init();
   }
 
@@ -31,7 +35,7 @@ class _MyScaffoldState extends State<MyScaffold> {
   Widget build(BuildContext context) {
     final view = Provider.of<ActionProvider>(context);
 
-    DialogProvider.instance.init(view);
+    DialogProvider.instance.init(view, this.widget.uid);
     //
     SpeechRecognizer.instance.dataStream.listen((data) {
       if (!data.status) {
@@ -45,6 +49,16 @@ class _MyScaffoldState extends State<MyScaffold> {
     });
     return Scaffold(
       key: scaffoldKey,
+      appBar: AppBar(
+        title: Center(child: Text(this.widget.uid)),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.person_outline),
+              onPressed: () {
+                AuthService().signOut();
+              })
+        ],
+      ),
       body: view.getWidget(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.mic),
@@ -107,8 +121,8 @@ class _MyScaffoldState extends State<MyScaffold> {
   void dispose() {
     super.dispose();
     DialogProvider.instance.dispose();
-    SpeechRecognizer.instance.dispose();
-    CategoryProvider.instance.dispose();
     ProductProvider.instance.dispose();
+    CategoryProvider.instance.dispose();
+    SpeechRecognizer.instance.dispose();
   }
 }

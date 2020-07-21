@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "981087642667-a7r63rubv7cj0q57qnv9a154n7uqfd7k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.proyect_topicos_mobile",
+            "certificate_hash": "f629bbe05d4590d1cb452d1ced4b3a493db56da4"
+          }
+        },
+        {
           "client_id": "981087642667-kgp5d6g5ire8lebr3nvs4sa02krp1d6f.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

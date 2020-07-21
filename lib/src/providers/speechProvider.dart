@@ -20,13 +20,15 @@ class SpeechRecognizer {
   LocaleName lang;
   final _data = SpeechData();
   final _stt = SpeechToText();
-  final _speechStreamController = StreamController<SpeechData>.broadcast();
+
+  StreamController<SpeechData> _speechStreamController;
 
   SpeechData get data => _data;
   Stream<SpeechData> get dataStream => _speechStreamController.stream;
   Function(SpeechData) get dataSink => _speechStreamController.sink.add;
 
   init() {
+    _speechStreamController = StreamController<SpeechData>.broadcast();
     _stt.initialize(onError: _onError, onStatus: _onStatus).then((active) {
       if (active) _stt.systemLocale().then((locale) => lang = locale);
     });
@@ -71,7 +73,8 @@ class Reader {
       if (_audioPlayer.state == AudioPlayerState.PLAYING) {
         await _audioPlayer.stop();
       }
-      final bytes = Base64Decoder().convert(audioContent, 0, audioContent.length);
+      final bytes =
+          Base64Decoder().convert(audioContent, 0, audioContent.length);
       final dir = await getTemporaryDirectory();
       final file = File("${dir.path}/wavenet.ogg");
       await file.writeAsBytes(bytes);

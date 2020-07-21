@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fluttericon/elusive_icons.dart';
+// import 'package:fluttericon/elusive_icons.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:proyect_topicos_mobile/src/models/Product.dart';
 
