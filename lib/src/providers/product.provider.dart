@@ -41,9 +41,7 @@ class ProductProvider {
       List data = json.decode(res.body);
       data?.forEach((item) {
         Map m = item["category"];
-        List<String> cats = List();
-        m.forEach((k, v) => cats.add(v));
-        item["category"] = cats;
+        item["category"] = m.values.toList();
         tmp.add(Product.fromJson(item));
       });
       productSink(tmp);
