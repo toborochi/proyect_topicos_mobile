@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 
 import 'package:permission_handler/permission_handler.dart';
 import 'package:proyect_topicos_mobile/src/providers/authservice.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
+// import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
 import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
+
+import 'src/widgets/views/payment_view.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
     Permission.microphone.request().then((value) => print(value.isGranted));
 
     return ChangeNotifierProvider(
-      create: (_) => ActionProvider(HomePage()),
+      create: (_) => ActionProvider(PaymentView()),
       child: MaterialApp(
         title: "ProyecTópicos Mobile",
         debugShowCheckedModeBanner: false,

@@ -11,8 +11,7 @@ class PaymentView extends StatefulWidget {
   _PaymentViewState createState() => _PaymentViewState();
 }
 
-class _PaymentViewState extends State<PaymentView>
-    with SingleTickerProviderStateMixin {
+class _PaymentViewState extends State<PaymentView> with SingleTickerProviderStateMixin {
   final List<Widget> myTabs = <Widget>[
     Tab(
       child: Row(
@@ -39,9 +38,7 @@ class _PaymentViewState extends State<PaymentView>
       cvvCode: "",
       expiryDate: "",
     ),
-    PayPalView(
-
-    )
+    PayPalView()
   ];
 
   TabController _tabController;

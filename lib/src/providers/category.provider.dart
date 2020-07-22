@@ -9,9 +9,10 @@ class CategoryProvider {
   static CategoryProvider get instance => _instance;
 
   StreamController<List<Category>> _categoryStreamController;
-  String url = "https://proyectopicos-efc3c.rj.r.appspot.com/";
+  String url = "https://shop-8f524.appspot.com/";
 
-  Function(List<Category>) get categorySink => _categoryStreamController.sink.add;
+  Function(List<Category>) get categorySink =>
+      _categoryStreamController.sink.add;
   Stream<List<Category>> get categoryStream => _categoryStreamController.stream;
 
   init() {

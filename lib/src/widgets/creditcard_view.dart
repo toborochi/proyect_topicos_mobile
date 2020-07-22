@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
+// import 'package:proyect_topicos_mobile/src/models/CreditCard.dart';
 
 class CreditCardView extends StatefulWidget {
   final String cardNumber;
@@ -16,20 +17,16 @@ class CreditCardView extends StatefulWidget {
 }
 
 class _CreditCardViewState extends State<CreditCardView> {
-  String cardNumber = '';
-  String expiryDate = '';
-  String cardHolderName = '';
-  String cvvCode = '';
-  bool isCvvFocused = false;
-
+  CreditCardModel cardModel = CreditCardModel('', '', '', '', false);
   void onCreditCardModelChange(CreditCardModel creditCardModel) {
-    setState(() {
-      cardNumber = creditCardModel.cardNumber;
-      expiryDate = creditCardModel.expiryDate;
-      cardHolderName = creditCardModel.cardHolderName;
-      cvvCode = creditCardModel.cvvCode;
-      isCvvFocused = creditCardModel.isCvvFocused;
-    });
+    setState(() => cardModel = creditCardModel);
+  }
+
+  bool _cardValidated() {
+    return cardModel.cardHolderName.isNotEmpty &&
+        cardModel.expiryDate.isNotEmpty &&
+        cardModel.cvvCode.isNotEmpty &&
+        cardModel.cardNumber.isNotEmpty;
   }
 
   @override
@@ -39,11 +36,11 @@ class _CreditCardViewState extends State<CreditCardView> {
         children: <Widget>[
           SizedBox(
             child: CreditCardWidget(
-              cardNumber: cardNumber,
-              expiryDate: expiryDate,
-              cardHolderName: cardHolderName,
-              cvvCode: cvvCode,
-              showBackView: isCvvFocused,
+              cvvCode: cardModel.cvvCode,
+              cardNumber: cardModel.cardNumber,
+              expiryDate: cardModel.expiryDate,
+              showBackView: cardModel.isCvvFocused,
+              cardHolderName: cardModel.cardHolderName,
             ),
           ),
           CreditCardForm(
@@ -59,9 +56,13 @@ class _CreditCardViewState extends State<CreditCardView> {
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.white)),
-                onPressed: () {},
+                onPressed: () {
+                  if (_cardValidated()) {
+                    print(cardModel);
+                  }
+                },
                 shape: RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(40.0))),
+                    borderRadius: BorderRadius.circular(40.0))),
           ),
           Container(height: 60),
         ],

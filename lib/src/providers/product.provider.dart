@@ -9,7 +9,7 @@ class ProductProvider {
   static ProductProvider get instance => _instance;
 
   StreamController<List<Product>> _productStreamController;
-  final String url = "https://proyectopicos-efc3c.rj.r.appspot.com/";
+  final String url = "https://shop-8f524.appspot.com/";
 
   Function(List<Product>) get productSink => _productStreamController.sink.add;
   Stream<List<Product>> get productStream => _productStreamController.stream;
