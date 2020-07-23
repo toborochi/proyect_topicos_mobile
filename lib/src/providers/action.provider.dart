@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:googleapis/dialogflow/v2.dart';
+import 'package:proyect_topicos_mobile/src/command/command.dart';
+import 'package:proyect_topicos_mobile/src/command/currentordercommand.dart';
+import 'package:proyect_topicos_mobile/src/command/deleteproductcommand.dart';
+import 'package:proyect_topicos_mobile/src/command/editproductcommand.dart';
+import 'package:proyect_topicos_mobile/src/command/getcategorycommand.dart';
+import 'package:proyect_topicos_mobile/src/command/getnamecommand.dart';
+import 'package:proyect_topicos_mobile/src/command/getpaymentmethodscommand.dart';
+import 'package:proyect_topicos_mobile/src/command/getpromocommand.dart';
+import 'package:proyect_topicos_mobile/src/command/homepagecommand.dart';
+import 'package:proyect_topicos_mobile/src/command/manageordercommand.dart';
 import 'package:proyect_topicos_mobile/src/models/Category.dart';
 import 'package:proyect_topicos_mobile/src/models/Order.dart';
 import 'package:proyect_topicos_mobile/src/models/Product.dart';
-import 'package:proyect_topicos_mobile/src/providers/authservice.dart';
 import 'package:proyect_topicos_mobile/src/providers/category.provider.dart';
-import 'package:proyect_topicos_mobile/src/providers/orderProvider.dart';
 import 'package:proyect_topicos_mobile/src/providers/product.provider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/product.select.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/order_detail_view.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/order_view.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/payment_view.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
 
 class ActionProvider with ChangeNotifier {
@@ -19,6 +23,8 @@ class ActionProvider with ChangeNotifier {
   List<Item> _pedido;
   Stream<List<Product>> _s;
   List<Product> _lastProductList;
+  Command _com;
+  String _uID; 
 
   ActionProvider(this._page) {
     _pedido = List<Item>();
@@ -30,9 +36,11 @@ class ActionProvider with ChangeNotifier {
   getProvider() => _s;
 
   _setPage(Widget w) {
+    /*
     if (w.runtimeType != _page.runtimeType) {
       _page = w;
-    }
+    }*/
+     _page = w;
   }
 
   double _amount() {
@@ -41,21 +49,32 @@ class ActionProvider with ChangeNotifier {
     return tmp;
   }
 
+  
+
   executeAction(GoogleCloudDialogflowV2QueryResult res) async {
     switch (res.action) {
       case "home_page":
-        _setPage(HomePage());
+        _com = HomePageCommand(_setPage);
+        await _com.execute();
         break;
 
       case "delete_product":
+        /*
         String name = res.parameters["producto"].toString();
         if (name.isNotEmpty) {
           _pedido.removeWhere(
               (item) => item.name.toLowerCase().contains(name.toLowerCase()));
         }
-
+        */
+        _com = DeleteProductCommand(res,_pedido);
+        await _com.execute();
         break;
+
       case "edit_product":
+        _com = EditProductCommand(res,_pedido,_setPage);
+        await _com.execute();
+        
+      /*
         String name = res.parameters["producto"].toString();
         int c = int.tryParse(res.parameters["cantidad"].toString());
         if (name.isNotEmpty) {
@@ -85,14 +104,22 @@ class ActionProvider with ChangeNotifier {
               }
             }
           }
-        }
+        }*/
 
         break;
       case "get_payment_methods":
-        _setPage(PaymentView());
+        _com = GetPaymentMethodsCommand(_setPage);
+        await _com.execute();
+        //_setPage(PaymentView());
         break;
 
       case "get_category":
+
+        _com = GetCategoryCommand(res,_lastProductList,_setPage);
+        await _com.execute();
+        _lastProductList = await _com.getData();
+
+        /*
         String cat = res.parameters["category"].toString();
         if (cat.isNotEmpty) {
           Future<List<Category>> c = CategoryProvider.instance.categories;
@@ -110,22 +137,39 @@ class ActionProvider with ChangeNotifier {
           _page = ProductsView(
             products: _lastProductList,
           );
-        }
+        }*/
         break;
       case "get_promo":
+
+        _com = GetPromoCommand(_lastProductList,_setPage);
+        await _com.execute();
+        _lastProductList = await _com.getData();
+
+        /*
         _lastProductList = await ProductProvider.instance.byPromo;
         _setPage(ProductsView());
+        */
         break;
 
       case "get_name":
+
+        _com = GetNameCommand(res,_lastProductList,_setPage);
+        await _com.execute();
+        _lastProductList = await _com.getData();
+
+        /*
         String name = res.parameters["producto"].toString();
         if (name.isNotEmpty) {
           _lastProductList = await ProductProvider.instance.byName(name);
           print("DEBUG");
-          _page = ProductsView();
-        }
+          _page = ProductsView(products: _lastProductList,);
+        }*/
         break;
       case "manage_order":
+
+        _com = ManageOrderCommand(res,_pedido,_setPage);
+        await _com.execute();
+        /*
         String f = res.parameters["finish"];
         String c = res.parameters["cancel"];
 
@@ -149,14 +193,15 @@ class ActionProvider with ChangeNotifier {
         if (c.length > 0) {
           _pedido.clear();
         }
-
+        */
         break;
       case "get_current_order":
-        _setPage(OrderView(cart: _pedido));
+        //_setPage(OrderView(cart: _pedido));
+        _com = CurrentOrderCommand(_pedido,_setPage);
+        await _com.execute();
+
         break;
-      case "get_payment_methods":
-        _setPage(PaymentView());
-        break;
+
       case "get_product":
         String n = res.parameters["producto"];
         int c = int.tryParse(res.parameters["cantidad"].toString());
@@ -190,6 +235,9 @@ class ActionProvider with ChangeNotifier {
         }
         break;
     }
+
+
+    // Notifica al Scaffold
     notifyListeners();
   }
 }

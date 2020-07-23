@@ -40,8 +40,7 @@ class ProductProvider {
       final res = await http.get("$url/api/products/promo/get");
       List data = json.decode(res.body);
       data?.forEach((item) {
-        Map m = item["category"];
-        item["category"] = m.values.toList();
+        List m = item["category"];
         tmp.add(Product.fromJson(item));
       });
       productSink(tmp);
