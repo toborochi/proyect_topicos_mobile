@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttericon/brandico_icons.dart';
+import 'package:fluttericon/elusive_icons.dart';
+import 'package:fluttericon/entypo_icons.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:fluttericon/maki_icons.dart';
+import 'package:fluttericon/octicons_icons.dart';
+import 'package:fluttericon/zocial_icons.dart';
 
 class UserPage extends StatefulWidget {
   @override
@@ -60,12 +65,10 @@ class _UserPageState extends State<UserPage> {
         ListTile(
           title: Text("FAQ"),
           trailing: Icon(Icons.chevron_right),
-          onTap: ()=>_launchURL("https://enterprise.github.com/faq")
         ),
         ListTile(
           title: Text("Términos y Condiciones"),
           trailing: Icon(Icons.chevron_right),
-          onTap: ()=>_launchURL("https://policies.google.com/terms?hl=es")
         ),
         Container(
           padding: EdgeInsets.fromLTRB(20, 10, 20, 40),
@@ -76,20 +79,11 @@ class _UserPageState extends State<UserPage> {
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.white)),
-              onPressed: (){},
+              onPressed: () {},
               shape: RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(40.0))),
         ),
       ],
     );
   }
-
-  _launchURL(String url) async {
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
-}
-
 }

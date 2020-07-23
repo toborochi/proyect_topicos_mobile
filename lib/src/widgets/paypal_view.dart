@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:provider/provider.dart';
 import 'package:proyect_topicos_mobile/src/models/PaypalAccount.dart';
+import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/paymentMethod.provider.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
 
 class PayPalView extends StatefulWidget {
+  final String uid;
+
+  PayPalView({this.uid});
+
   @override
   _PayPalViewState createState() => _PayPalViewState();
 }
@@ -89,7 +96,8 @@ class _PayPalViewState extends State<PayPalView> {
                   paypalAccount.email = email.text;
                   paypalAccount.password = password.text;
                   PaymentProvider.instance
-                      .createPaypalAccount("userID", paypalAccount);
+                      .createPaypalAccount(this.widget.uid, paypalAccount);
+                  changeView(context);
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(40.0))),
@@ -97,5 +105,9 @@ class _PayPalViewState extends State<PayPalView> {
         ],
       ),
     );
+  }
+
+  void changeView(BuildContext context) {
+    Provider.of<ActionProvider>(context, listen: false).setPage(HomePage());
   }
 }

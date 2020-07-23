@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:fluttericon/brandico_icons.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
-import 'package:proyect_topicos_mobile/src/providers/paymentMethod.provider.dart';
 
 import 'package:proyect_topicos_mobile/src/widgets/paypal_view.dart';
 import 'package:proyect_topicos_mobile/src/widgets/creditcard_view.dart';
 
 class PaymentView extends StatefulWidget {
+  final String uid;
+  PaymentView({this.uid});
   @override
   _PaymentViewState createState() => _PaymentViewState();
 }
@@ -32,15 +33,16 @@ class _PaymentViewState extends State<PaymentView>
     )
   ];
 
-  final List<Widget> myTabViews = <Widget>[
-    CreditCardView(
-      cardHolderName: "",
-      cardNumber: "",
-      cvvCode: "",
-      expiryDate: "",
-    ),
-    PayPalView()
-  ];
+  List<Widget> get myTabViews {
+    return <Widget>[
+      CreditCardView(
+        uid: this.widget.uid,
+      ),
+      PayPalView(
+        uid: this.widget.uid,
+      )
+    ];
+  }
 
   TabController _tabController;
 
@@ -48,7 +50,6 @@ class _PaymentViewState extends State<PaymentView>
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: myTabs.length);
-    PaymentProvider.instance.getPaymentMethods("userID");
   }
 
   @override

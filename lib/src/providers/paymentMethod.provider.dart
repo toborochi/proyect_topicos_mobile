@@ -45,12 +45,14 @@ class PaymentProvider {
   }
 
   Future<List> getPaymentMethods(String userID) async {
-    List<dynamic> tmp = List();
+    List tmp = List();
     try {
       var res = await http.get("$_url/api/paymentMethods/$userID/$userID");
       List data = json.decode(res.body);
       data?.forEach((item) => tmp.add(item));
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
     return tmp;
   }
 

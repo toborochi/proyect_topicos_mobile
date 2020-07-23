@@ -35,7 +35,7 @@ class ActionProvider with ChangeNotifier {
   getOrder() => _pedido;
   getProvider() => _s;
 
-  _setPage(Widget w) {
+  setPage(Widget w) {
     /*
     if (w.runtimeType != _page.runtimeType) {
       _page = w;
@@ -54,7 +54,7 @@ class ActionProvider with ChangeNotifier {
   executeAction(GoogleCloudDialogflowV2QueryResult res) async {
     switch (res.action) {
       case "home_page":
-        _com = HomePageCommand(_setPage);
+        _com = HomePageCommand(setPage);
         await _com.execute();
         break;
 
@@ -69,9 +69,8 @@ class ActionProvider with ChangeNotifier {
         _com = DeleteProductCommand(res,_pedido);
         await _com.execute();
         break;
-
       case "edit_product":
-        _com = EditProductCommand(res,_pedido,_setPage);
+        _com = EditProductCommand(res,_pedido,setPage);
         await _com.execute();
         
       /*
@@ -85,7 +84,7 @@ class ActionProvider with ChangeNotifier {
               (element) => element.name.toLowerCase().contains(name));
 
           if (p != null) {
-            _setPage(ProductSelect(
+            setPage(ProductSelect(
               product: p,
             ));
           }
@@ -108,14 +107,14 @@ class ActionProvider with ChangeNotifier {
 
         break;
       case "get_payment_methods":
-        _com = GetPaymentMethodsCommand(_setPage);
+        _com = GetPaymentMethodsCommand(setPage);
         await _com.execute();
         //_setPage(PaymentView());
         break;
 
       case "get_category":
 
-        _com = GetCategoryCommand(res,_lastProductList,_setPage);
+        _com = GetCategoryCommand(res,_lastProductList,setPage);
         await _com.execute();
         _lastProductList = await _com.getData();
 
@@ -133,7 +132,7 @@ class ActionProvider with ChangeNotifier {
 
           _lastProductList =
               await ProductProvider.instance.byCategory(categoryID);
-          print("DEBUG");
+          // print("DEBUG");
           _page = ProductsView(
             products: _lastProductList,
           );
@@ -141,7 +140,7 @@ class ActionProvider with ChangeNotifier {
         break;
       case "get_promo":
 
-        _com = GetPromoCommand(_lastProductList,_setPage);
+        _com = GetPromoCommand(_lastProductList,setPage);
         await _com.execute();
         _lastProductList = await _com.getData();
 
@@ -153,7 +152,7 @@ class ActionProvider with ChangeNotifier {
 
       case "get_name":
 
-        _com = GetNameCommand(res,_lastProductList,_setPage);
+        _com = GetNameCommand(res,_lastProductList,setPage);
         await _com.execute();
         _lastProductList = await _com.getData();
 
@@ -167,7 +166,7 @@ class ActionProvider with ChangeNotifier {
         break;
       case "manage_order":
 
-        _com = ManageOrderCommand(res,_pedido,_setPage);
+        _com = ManageOrderCommand(res,_pedido,setPage);
         await _com.execute();
         /*
         String f = res.parameters["finish"];
@@ -181,11 +180,9 @@ class ActionProvider with ChangeNotifier {
               userId: AuthService.instance.uid,
               amount: _amount());
 
-          Map<String,dynamic> ord = await OrderProvider.instance.saveOrder(o);
+          Map<String, dynamic> ord = await OrderProvider.instance.saveOrder(o);
           print(ord);
-
-
-          _setPage(OrderDetail(
+          setPage(OrderDetail(
             order: o,
           ));
         }
@@ -197,7 +194,7 @@ class ActionProvider with ChangeNotifier {
         break;
       case "get_current_order":
         //_setPage(OrderView(cart: _pedido));
-        _com = CurrentOrderCommand(_pedido,_setPage);
+        _com = CurrentOrderCommand(_pedido,setPage);
         await _com.execute();
 
         break;
@@ -228,7 +225,7 @@ class ActionProvider with ChangeNotifier {
           }
 
           if (p != null) {
-            _setPage(ProductSelect(
+            setPage(ProductSelect(
               product: p,
             ));
           }
