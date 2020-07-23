@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:proyect_topicos_mobile/src/models/PaypalAccount.dart';
 
 class PaymentProvider {
@@ -17,7 +17,7 @@ class PaymentProvider {
 
   createCreditCard(String userID, CreditCardModel creditCardModel) async {
     try {
-      var res = await http.post("$_url/api/paymentMethods", body: {
+      await http.post("$_url/api/paymentMethods", body: {
         "userID": userID,
         "clientID": userID,
         "cardHolderName": creditCardModel.cardHolderName,
@@ -32,7 +32,7 @@ class PaymentProvider {
 
   createPaypalAccount(String userID, PaypalAccount paypalAccount) async {
     try {
-      var res = await http.post("$_url/api/paymentMethods", body: {
+      await http.post("$_url/api/paymentMethods", body: {
         "userID": userID,
         "clientID": userID,
         "email": paypalAccount.email,
@@ -43,13 +43,14 @@ class PaymentProvider {
     }
   }
 
-  Map<String, dynamic> _toJson(CreditCardModel creditCardModel) {
-    return {
-      "cardHolderName": creditCardModel.cardHolderName,
-      "expiryDate": creditCardModel.expiryDate,
-      "cardNumber": creditCardModel.cardNumber,
-      "cvvCode": creditCardModel.cvvCode,
-    };
+  Future<List> getPaymentMethods(String userID) async {
+    List<dynamic> tmp = List();
+    try {
+      var res = await http.get("$_url/api/paymentMethods/$userID/$userID");
+      List data = json.decode(res.body);
+      data?.forEach((item) => tmp.add(item));
+    } catch (e) {}
+    return tmp;
   }
 
   dispose() => _paymentStreamController?.close();
