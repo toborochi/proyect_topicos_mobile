@@ -3,7 +3,9 @@ import 'package:googleapis/dialogflow/v2.dart';
 import 'package:proyect_topicos_mobile/src/models/Category.dart';
 import 'package:proyect_topicos_mobile/src/models/Order.dart';
 import 'package:proyect_topicos_mobile/src/models/Product.dart';
+import 'package:proyect_topicos_mobile/src/providers/authservice.dart';
 import 'package:proyect_topicos_mobile/src/providers/category.provider.dart';
+import 'package:proyect_topicos_mobile/src/providers/orderProvider.dart';
 import 'package:proyect_topicos_mobile/src/providers/product.provider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/product.select.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
@@ -33,6 +35,12 @@ class ActionProvider with ChangeNotifier {
     }
   }
 
+  double _amount() {
+    double tmp = 0;
+    _pedido?.forEach((item) => tmp += item.productAmount);
+    return tmp;
+  }
+
   executeAction(GoogleCloudDialogflowV2QueryResult res) async {
     switch (res.action) {
       case "home_page":
@@ -51,11 +59,11 @@ class ActionProvider with ChangeNotifier {
         String name = res.parameters["producto"].toString();
         int c = int.tryParse(res.parameters["cantidad"].toString());
         if (name.isNotEmpty) {
+          Future<List<Product>> cc = ProductProvider.instance.byName(name);
+          List<Product> f = await cc;
 
-              Future<List<Product>> cc = ProductProvider.instance.byName(name);
-              List<Product> f = await cc;
-
-              Product p = f.firstWhere((element) => element.name.toLowerCase().contains(name));
+          Product p = f.firstWhere(
+              (element) => element.name.toLowerCase().contains(name));
 
           if (p != null) {
             _setPage(ProductSelect(
@@ -71,7 +79,7 @@ class ActionProvider with ChangeNotifier {
                 if (c == 0) {
                   _pedido.removeWhere((item) =>
                       item.name.toLowerCase().contains(name.toLowerCase()));
-                }else{
+                } else {
                   _pedido[i].productQuantity = c;
                 }
               }
@@ -120,13 +128,19 @@ class ActionProvider with ChangeNotifier {
       case "manage_order":
         String f = res.parameters["finish"];
         String c = res.parameters["cancel"];
+
         if (f.length > 0) {
           Order o = Order(
               item: _pedido,
-              date: DateTime.now().millisecond,
-              clientId: "123123",
-              userId: "123456",
-              amount: 700);
+              date: DateTime.now().millisecondsSinceEpoch,
+              clientId: AuthService.instance.uid,
+              userId: AuthService.instance.uid,
+              amount: _amount());
+
+          Map<String,dynamic> ord = await OrderProvider.instance.saveOrder(o);
+          print(ord);
+
+
           _setPage(OrderDetail(
             order: o,
           ));

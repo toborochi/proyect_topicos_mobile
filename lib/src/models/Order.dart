@@ -31,7 +31,7 @@ class Order {
         "amount": amount,
         "clientID": clientId,
         "date": date,
-        "item": List<dynamic>.from(item.map((x) => x.toJson())),
+        "shopping_cart": List<dynamic>.from(item.map((x) => x.toJson())),
         "userID": userId,
       };
 }
