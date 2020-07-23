@@ -16,23 +16,36 @@ class OrderDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-          child: Column(
+      child: Column(
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
-              width: 300,
-              decoration: BoxDecoration(
-                color: Colors.orange[900],
-              borderRadius: BorderRadius.only(topRight:  Radius.circular(40),bottomRight:Radius.circular(40) ),
-              border: Border.all(width: 3,color: Colors.orange[900],style: BorderStyle.solid)
-              ),
-              child: Center(child: Text("Detalle del Pedido",style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold),)),
+                width: 300,
+                decoration: BoxDecoration(
+                    color: Colors.orange[900],
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(40),
+                        bottomRight: Radius.circular(40)),
+                    border: Border.all(
+                        width: 3,
+                        color: Colors.orange[900],
+                        style: BorderStyle.solid)),
+                child: Center(
+                    child: Text(
+                  "Detalle del Pedido",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                )),
               ),
             ],
           ),
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
           Container(
             padding: EdgeInsets.all(20),
             width: double.infinity,
@@ -41,33 +54,48 @@ class OrderDetail extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                  
-
                 Text("Detalle de Pedido",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 Container(
                   padding: EdgeInsets.all(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text("Forma de Pago",style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text("Tarjeta",style: TextStyle(fontSize: 16)),
-                      SizedBox(height: 10,),
-                      Text("CI/NIT",style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text("6228811",style: TextStyle(fontSize: 16)),
-                      SizedBox(height: 10,),
-                      Text("Direccion",style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text("Calle los pinos",style: TextStyle(fontSize: 16)),
-                      SizedBox(height: 10,),
-                      Text("Referencia",style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text("787845454",style: TextStyle(fontSize: 16)),
+                      Text("Forma de Pago",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
+                      Text("Tarjeta", style: TextStyle(fontSize: 16)),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text("CI/NIT",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
+                      Text("6228811", style: TextStyle(fontSize: 16)),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text("Direccion",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
+                      Text("Calle los pinos", style: TextStyle(fontSize: 16)),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text("Referencia",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold)),
+                      Text("787845454", style: TextStyle(fontSize: 16)),
                     ],
                   ),
                 )
               ],
             ),
           ),
-          Column(children: _buildList(order.item),),
+          Column(
+            children: _buildList(order.item),
+          ),
           Container(
             padding: EdgeInsets.all(16),
             color: Colors.grey[300],
@@ -78,13 +106,12 @@ class OrderDetail extends StatelessWidget {
                 Spacer(),
                 Text("Bs. ${_total()}")
               ],
-            )
-          )
+          )),
+          // button to pay
         ],
       ),
     );
   }
-
 
   List<Widget> _buildList(List<Item> data) {
     List<Widget> tmp = List<Widget>();
@@ -95,5 +122,4 @@ class OrderDetail extends StatelessWidget {
     });
     return tmp;
   }
-
 }

@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:provider/provider.dart';
+import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/paymentMethod.provider.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
 // import 'package:proyect_topicos_mobile/src/models/CreditCard.dart';
 
 class CreditCardView extends StatefulWidget {
-  final String cardNumber;
-  final String expiryDate;
-  final String cardHolderName;
-  final String cvvCode;
-
-  const CreditCardView(
-      {this.cardNumber, this.expiryDate, this.cardHolderName, this.cvvCode});
+  final String uid;
+  const CreditCardView({this.uid});
 
   @override
   _CreditCardViewState createState() => _CreditCardViewState();
@@ -19,7 +17,7 @@ class CreditCardView extends StatefulWidget {
 
 class _CreditCardViewState extends State<CreditCardView> {
   CreditCardModel cardModel = CreditCardModel(
-    '4242 4242 4242 4242', '10/24', '5766', 'Pedro Caricari', false);
+      '4242 4242 4242 4242', '10/24', '5766', 'Pedro Caricari', false);
   void onCreditCardModelChange(CreditCardModel creditCardModel) {
     setState(() => cardModel = creditCardModel);
   }
@@ -60,8 +58,8 @@ class _CreditCardViewState extends State<CreditCardView> {
                         color: Colors.white)),
                 onPressed: () {
                   if (_cardValidated()) {
-                    PaymentProvider.instance
-                        .createCreditCard("userID", this.cardModel);
+                    PaymentProvider.instance.createCreditCard(this.widget.uid, this.cardModel);
+                    changeView(context);
                   }
                 },
                 shape: RoundedRectangleBorder(
@@ -71,5 +69,9 @@ class _CreditCardViewState extends State<CreditCardView> {
         ],
       ),
     );
+  }
+
+  void changeView(BuildContext context) {
+    Provider.of<ActionProvider>(context, listen: false).setPage(HomePage());
   }
 }

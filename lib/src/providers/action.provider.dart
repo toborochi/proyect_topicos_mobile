@@ -6,12 +6,15 @@ import 'package:proyect_topicos_mobile/src/models/Product.dart';
 import 'package:proyect_topicos_mobile/src/providers/authservice.dart';
 import 'package:proyect_topicos_mobile/src/providers/category.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/orderProvider.dart';
+// import 'package:proyect_topicos_mobile/src/providers/paymentMethod.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/product.provider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/product.select.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/order_detail_view.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/order_view.dart';
+// import 'package:proyect_topicos_mobile/src/widgets/views/paymentList.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/payment_view.dart';
+// import 'package:proyect_topicos_mobile/src/widgets/views/payment_view.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
 
 class ActionProvider with ChangeNotifier {
@@ -29,10 +32,11 @@ class ActionProvider with ChangeNotifier {
   getOrder() => _pedido;
   getProvider() => _s;
 
-  _setPage(Widget w) {
+  setPage(Widget w) {
     if (w.runtimeType != _page.runtimeType) {
       _page = w;
     }
+    notifyListeners();
   }
 
   double _amount() {
@@ -44,7 +48,7 @@ class ActionProvider with ChangeNotifier {
   executeAction(GoogleCloudDialogflowV2QueryResult res) async {
     switch (res.action) {
       case "home_page":
-        _setPage(HomePage());
+        setPage(HomePage());
         break;
 
       case "delete_product":
@@ -66,7 +70,7 @@ class ActionProvider with ChangeNotifier {
               (element) => element.name.toLowerCase().contains(name));
 
           if (p != null) {
-            _setPage(ProductSelect(
+            setPage(ProductSelect(
               product: p,
             ));
           }
@@ -88,10 +92,6 @@ class ActionProvider with ChangeNotifier {
         }
 
         break;
-      case "get_payment_methods":
-        _setPage(PaymentView());
-        break;
-
       case "get_category":
         String cat = res.parameters["category"].toString();
         if (cat.isNotEmpty) {
@@ -106,7 +106,7 @@ class ActionProvider with ChangeNotifier {
 
           _lastProductList =
               await ProductProvider.instance.byCategory(categoryID);
-          print("DEBUG");
+          // print("DEBUG");
           _page = ProductsView(
             products: _lastProductList,
           );
@@ -114,15 +114,17 @@ class ActionProvider with ChangeNotifier {
         break;
       case "get_promo":
         _lastProductList = await ProductProvider.instance.byPromo;
-        _setPage(ProductsView());
+        setPage(ProductsView(
+          products: _lastProductList,
+        ));
         break;
 
       case "get_name":
         String name = res.parameters["producto"].toString();
         if (name.isNotEmpty) {
           _lastProductList = await ProductProvider.instance.byName(name);
-          print("DEBUG");
-          _page = ProductsView();
+          // print("DEBUG");
+          _page = ProductsView(products: _lastProductList);
         }
         break;
       case "manage_order":
@@ -137,11 +139,9 @@ class ActionProvider with ChangeNotifier {
               userId: AuthService.instance.uid,
               amount: _amount());
 
-          Map<String,dynamic> ord = await OrderProvider.instance.saveOrder(o);
+          Map<String, dynamic> ord = await OrderProvider.instance.saveOrder(o);
           print(ord);
-
-
-          _setPage(OrderDetail(
+          setPage(OrderDetail(
             order: o,
           ));
         }
@@ -152,10 +152,13 @@ class ActionProvider with ChangeNotifier {
 
         break;
       case "get_current_order":
-        _setPage(OrderView(cart: _pedido));
+        setPage(OrderView(cart: _pedido));
         break;
       case "get_payment_methods":
-        _setPage(PaymentView());
+        // List paymentMethods = await PaymentProvider.instance.getPaymentMethods("userID");
+        setPage(PaymentView(
+          uid: "userID",
+        ));
         break;
       case "get_product":
         String n = res.parameters["producto"];
@@ -183,13 +186,12 @@ class ActionProvider with ChangeNotifier {
           }
 
           if (p != null) {
-            _setPage(ProductSelect(
+            setPage(ProductSelect(
               product: p,
             ));
           }
         }
         break;
     }
-    notifyListeners();
   }
 }
