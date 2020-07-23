@@ -58,7 +58,9 @@ class _CreditCardViewState extends State<CreditCardView> {
                         color: Colors.white)),
                 onPressed: () {
                   if (_cardValidated()) {
-                    print(cardModel);
+                    print(cardModel.cardNumber);
+                    print(cardModel.cvvCode);
+                    print(cardModel.expiryDate);
                   }
                 },
                 shape: RoundedRectangleBorder(

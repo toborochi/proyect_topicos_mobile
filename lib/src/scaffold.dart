@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/authservice.dart';
-// import 'package:proyect_topicos_mobile/src/models/Category.dart';
 import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/category.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/dialogflow.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/product.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
-// import 'package:proyect_topicos_mobile/src/widgets/categorylist.dart';
-// import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
-// import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
-// import 'package:proyect_topicos_mobile/src/widgets/category.dart';
+
 
 class MyScaffold extends StatefulWidget {
   final String uid;
@@ -26,6 +23,7 @@ class _MyScaffoldState extends State<MyScaffold> {
   @override
   void initState() {
     super.initState();
+    Permission.microphone.request().then((value) => print(value.isGranted));
     ProductProvider.instance.init();
     CategoryProvider.instance.init();
     SpeechRecognizer.instance.init();
