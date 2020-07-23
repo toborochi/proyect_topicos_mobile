@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_model.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:proyect_topicos_mobile/src/providers/paymentMethod.provider.dart';
 // import 'package:proyect_topicos_mobile/src/models/CreditCard.dart';
 
 class CreditCardView extends StatefulWidget {
@@ -17,7 +18,8 @@ class CreditCardView extends StatefulWidget {
 }
 
 class _CreditCardViewState extends State<CreditCardView> {
-  CreditCardModel cardModel = CreditCardModel('', '', '', '', false);
+  CreditCardModel cardModel = CreditCardModel(
+    '4242 4242 4242 4242', '10/24', '5766', 'Pedro Caricari', false);
   void onCreditCardModelChange(CreditCardModel creditCardModel) {
     setState(() => cardModel = creditCardModel);
   }
@@ -58,9 +60,8 @@ class _CreditCardViewState extends State<CreditCardView> {
                         color: Colors.white)),
                 onPressed: () {
                   if (_cardValidated()) {
-                    print(cardModel.cardNumber);
-                    print(cardModel.cvvCode);
-                    print(cardModel.expiryDate);
+                    PaymentProvider.instance
+                        .createCreditCard("userID", this.cardModel);
                   }
                 },
                 shape: RoundedRectangleBorder(

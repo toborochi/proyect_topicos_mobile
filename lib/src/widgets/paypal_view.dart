@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:proyect_topicos_mobile/src/models/PaypalAccount.dart';
+import 'package:proyect_topicos_mobile/src/providers/paymentMethod.provider.dart';
 
 class PayPalView extends StatefulWidget {
   @override
@@ -7,8 +9,10 @@ class PayPalView extends StatefulWidget {
 }
 
 class _PayPalViewState extends State<PayPalView> {
-  TextEditingController email;
-  TextEditingController password;
+  PaypalAccount paypalAccount = PaypalAccount();
+  TextEditingController email =
+      TextEditingController(text: "sb-4ipeb2496064@business.example.com");
+  TextEditingController password = TextEditingController(text: "caracul0");
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +21,19 @@ class _PayPalViewState extends State<PayPalView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          SizedBox(height: 20,),
-          Icon(FontAwesome.paypal,color: Colors.blue[900],size: 40,),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
+          Icon(
+            FontAwesome.paypal,
+            color: Colors.blue[900],
+            size: 40,
+          ),
+          SizedBox(
+            height: 20,
+          ),
           TextField(
+            controller: email,
             decoration: InputDecoration(
               hintText: 'email',
               prefixIcon: Icon(Icons.email),
@@ -37,8 +50,11 @@ class _PayPalViewState extends State<PayPalView> {
               ),
             ),
           ),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           TextField(
+            controller: password,
             obscureText: true,
             decoration: InputDecoration(
               hintText: 'password',
@@ -56,7 +72,9 @@ class _PayPalViewState extends State<PayPalView> {
               ),
             ),
           ),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           ButtonTheme(
             minWidth: 300,
             height: 60,
@@ -67,7 +85,12 @@ class _PayPalViewState extends State<PayPalView> {
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.white)),
-                onPressed: () {},
+                onPressed: () {
+                  paypalAccount.email = email.text;
+                  paypalAccount.password = password.text;
+                  PaymentProvider.instance
+                      .createPaypalAccount("userID", paypalAccount);
+                },
                 shape: RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(40.0))),
           ),
