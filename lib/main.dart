@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     return ChangeNotifierProvider(
-      create: (_) => ActionProvider(UserPage()),
+      create: (_) => ActionProvider(HomePage()),
       child: MaterialApp(
         title: "ProyecTópicos Mobile",
         debugShowCheckedModeBanner: false,
