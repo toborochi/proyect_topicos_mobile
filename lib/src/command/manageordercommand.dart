@@ -6,14 +6,13 @@ import 'package:proyect_topicos_mobile/src/providers/orderProvider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/order_detail_view.dart';
 
 class ManageOrderCommand implements Command {
-
   GoogleCloudDialogflowV2QueryResult _res;
   List<Item> _pedido;
   Function _viewPage;
 
-  ManageOrderCommand(this._res, this._pedido,this._viewPage);
+  ManageOrderCommand(this._res, this._pedido, this._viewPage);
 
-   double _amount() {
+  double _amount() {
     double tmp = 0;
     _pedido?.forEach((item) => tmp += item.productAmount);
     return tmp;

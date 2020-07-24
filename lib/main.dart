@@ -5,6 +5,7 @@ import 'package:proyect_topicos_mobile/src/providers/authservice.dart';
 // import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
 import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/payment_check.dart';
 // import 'package:proyect_topicos_mobile/src/widgets/views/userpage.dart';
 
 void main() => runApp(MyApp());

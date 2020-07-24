@@ -26,11 +26,13 @@ class GetCategoryCommand implements Command {
         }
       });
 
+    if(categoryID.isNotEmpty){
       this._lastProductList = await ProductProvider.instance.byCategory(categoryID);
 
       _viewPage(ProductsView(
         products: _lastProductList,
       ));
+      }
     }
   }
 
