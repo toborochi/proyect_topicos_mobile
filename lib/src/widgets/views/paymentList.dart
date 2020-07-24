@@ -24,7 +24,7 @@ class _PaymentListState extends State<PaymentList> {
         child: Icon(Icons.payment),
         backgroundColor: Colors.green,
         onPressed: () {
-          Provider.of<ActionProvider>(context).setPage(PaymentView(
+          Provider.of<ActionProvider>(context,listen: false).setPage(PaymentView(
             uid: this.widget.uid,
           ));
         },
@@ -37,12 +37,16 @@ class _PaymentListState extends State<PaymentList> {
     data?.forEach((item) {
       tmp.add(item.containsKey("email")
           ? ListTile(
-              title: Text(item["email"]), subtitle: Text(item["password"]))
+              title: Text(item["email"]), subtitle: Text(item["password"]),
+              onTap: () {
+                Provider.of<ActionProvider>(context,listen: false).setPage(PaymentCheck());
+              },
+              )
           : ListTile(
               title: Text(item["cardNumber"]),
               subtitle: Text(item["expiryDate"]),
               onTap: () {
-                Provider.of<ActionProvider>(context).setPage(PaymentCheck());
+                Provider.of<ActionProvider>(context,listen: false).setPage(PaymentCheck());
               },
             ));
     });
