@@ -46,8 +46,5 @@ class ManageOrderCommand implements Command {
   }
 
   @override
-  Future getData() {
-    // TODO: implement getData
-    throw UnimplementedError();
-  }
+  Future getData() => throw UnimplementedError();
 }
