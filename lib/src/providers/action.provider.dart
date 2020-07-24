@@ -41,13 +41,6 @@ class ActionProvider with ChangeNotifier {
      notifyListeners();
   }
 
-  double _amount() {
-    double tmp = 0;
-    _pedido?.forEach((item) => tmp += item.productAmount);
-    return tmp;
-  }
-
-  
 
   executeAction(GoogleCloudDialogflowV2QueryResult res) async {
     switch (res.action) {

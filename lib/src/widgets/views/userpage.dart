@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttericon/brandico_icons.dart';
-import 'package:fluttericon/elusive_icons.dart';
-import 'package:fluttericon/entypo_icons.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
-import 'package:fluttericon/maki_icons.dart';
-import 'package:fluttericon/octicons_icons.dart';
-import 'package:fluttericon/zocial_icons.dart';
 
 class UserPage extends StatefulWidget {
   @override
