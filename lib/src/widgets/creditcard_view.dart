@@ -9,7 +9,8 @@ import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
 
 class CreditCardView extends StatefulWidget {
   final String uid;
-  const CreditCardView({this.uid});
+  final bool check;
+  const CreditCardView({this.uid, this.check});
 
   @override
   _CreditCardViewState createState() => _CreditCardViewState();
@@ -58,7 +59,8 @@ class _CreditCardViewState extends State<CreditCardView> {
                         color: Colors.white)),
                 onPressed: () {
                   if (_cardValidated()) {
-                    PaymentProvider.instance.createCreditCard(this.widget.uid, this.cardModel);
+                    PaymentProvider.instance
+                        .createCreditCard(this.widget.uid, this.cardModel);
                     changeView(context);
                   }
                 },

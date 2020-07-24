@@ -5,11 +5,13 @@ import 'package:proyect_topicos_mobile/src/models/PaypalAccount.dart';
 import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/paymentMethod.provider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/payment_check.dart';
 
 class PayPalView extends StatefulWidget {
   final String uid;
+  final bool check;
 
-  PayPalView({this.uid});
+  PayPalView({this.uid, this.check});
 
   @override
   _PayPalViewState createState() => _PayPalViewState();
@@ -108,6 +110,10 @@ class _PayPalViewState extends State<PayPalView> {
   }
 
   void changeView(BuildContext context) {
-    Provider.of<ActionProvider>(context, listen: false).setPage(HomePage());
+    if (this.widget.check) {
+      Provider.of<ActionProvider>(context, listen: false).setPage(PaymentCheck());
+    } else {
+      Provider.of<ActionProvider>(context, listen: false).setPage(HomePage());
+    }
   }
 }

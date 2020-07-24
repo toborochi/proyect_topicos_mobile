@@ -8,7 +8,8 @@ import 'package:proyect_topicos_mobile/src/widgets/creditcard_view.dart';
 
 class PaymentView extends StatefulWidget {
   final String uid;
-  PaymentView({this.uid});
+  final bool check;
+  PaymentView({this.uid, this.check});
   @override
   _PaymentViewState createState() => _PaymentViewState();
 }
