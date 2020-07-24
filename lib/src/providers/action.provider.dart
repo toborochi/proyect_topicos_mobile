@@ -12,6 +12,7 @@ import 'package:proyect_topicos_mobile/src/command/homepagecommand.dart';
 import 'package:proyect_topicos_mobile/src/command/manageordercommand.dart';
 import 'package:proyect_topicos_mobile/src/models/Order.dart';
 import 'package:proyect_topicos_mobile/src/models/Product.dart';
+import 'package:proyect_topicos_mobile/src/providers/authservice.dart';
 import 'package:proyect_topicos_mobile/src/providers/product.provider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/product.select.dart';
 
@@ -21,7 +22,6 @@ class ActionProvider with ChangeNotifier {
   Stream<List<Product>> _s;
   List<Product> _lastProductList;
   Command _com;
-  String _uID; 
 
   ActionProvider(this._page) {
     _pedido = List<Item>();
@@ -38,6 +38,7 @@ class ActionProvider with ChangeNotifier {
       _page = w;
     }*/
      _page = w;
+     notifyListeners();
   }
 
   double _amount() {
@@ -104,7 +105,7 @@ class ActionProvider with ChangeNotifier {
 
         break;
       case "get_payment_methods":
-        _com = GetPaymentMethodsCommand(setPage);
+        _com = GetPaymentMethodsCommand(setPage,AuthService.instance.uid);
         await _com.execute();
         //_setPage(PaymentView());
         break;
