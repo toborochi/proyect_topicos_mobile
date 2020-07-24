@@ -88,21 +88,20 @@ class _MyScaffoldState extends State<MyScaffold> {
         child: StreamBuilder(
           stream: SpeechRecognizer.instance.dataStream,
           builder: (_, AsyncSnapshot<SpeechData> snap) {
-            if (snap.hasError) {
-              return Icon(
-                Icons.error,
-                size: size.height * .07,
-              );
-            }
             if (snap.hasData) {
-              return Text(
-                snap.data.result,
-                style: TextStyle(fontSize: 17),
-                textAlign: TextAlign.justify,
-                overflow: TextOverflow.fade,
-              );
+              if (snap.data != null) {
+                return Text(
+                  snap.data.result,
+                  style: TextStyle(fontSize: 17),
+                  textAlign: TextAlign.justify,
+                  overflow: TextOverflow.fade,
+                );
+              }
+              return Icon(Icons.record_voice_over,
+                      size: size.height * .07);
             }
-            return Icon(Icons.record_voice_over, size: size.height * .07);
+            return Icon(snap.hasError ? Icons.error : Icons.record_voice_over,
+                size: size.height * .07);
           },
         ),
       ),
