@@ -3,7 +3,9 @@ import 'package:proyect_topicos_mobile/src/command/command.dart';
 import 'package:proyect_topicos_mobile/src/models/Order.dart';
 import 'package:proyect_topicos_mobile/src/providers/authservice.dart';
 import 'package:proyect_topicos_mobile/src/providers/orderProvider.dart';
+import 'package:proyect_topicos_mobile/src/providers/paymentMethod.provider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/order_detail_view.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/paymentList.dart';
 
 class ManageOrderCommand implements Command {
   GoogleCloudDialogflowV2QueryResult _res;
@@ -34,9 +36,17 @@ class ManageOrderCommand implements Command {
       Map<String, dynamic> ord = await OrderProvider.instance.saveOrder(o);
       print(ord);
 
+      List<dynamic> p = await PaymentProvider.instance.getPaymentMethods(AuthService.instance.uid);
+
+      _viewPage(PaymentList(
+         uid: AuthService.instance.uid,
+         paymentsMethods: p
+      ));
+
+      /*
       _viewPage(OrderDetail(
         order: o,
-      ));
+      ));*/
     }
 
     if (c.length > 0) {
