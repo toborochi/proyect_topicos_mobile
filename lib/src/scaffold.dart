@@ -8,7 +8,6 @@ import 'package:proyect_topicos_mobile/src/providers/dialogflow.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/product.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
 
-
 class MyScaffold extends StatefulWidget {
   final String uid;
   MyScaffold({Key key, this.uid}) : super(key: key);
@@ -35,7 +34,7 @@ class _MyScaffoldState extends State<MyScaffold> {
 
     DialogProvider.instance.init(view, this.widget.uid);
     //
-    
+
     SpeechRecognizer.instance.dataStream.listen((data) {
       if (!data.status) {
         if (_lastResult != data.result) {
@@ -67,11 +66,10 @@ class _MyScaffoldState extends State<MyScaffold> {
           } catch (err) {
             print(err);
           }
-         scaffoldKey.currentState.showSnackBar(_snackbar(context));
+          scaffoldKey.currentState.showSnackBar(_snackbar(context));
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-
     );
   }
 
@@ -90,6 +88,12 @@ class _MyScaffoldState extends State<MyScaffold> {
         child: StreamBuilder(
           stream: SpeechRecognizer.instance.dataStream,
           builder: (_, AsyncSnapshot<SpeechData> snap) {
+            if (snap.hasError) {
+              return Icon(
+                Icons.error,
+                size: size.height * .07,
+              );
+            }
             if (snap.hasData) {
               return Text(
                 snap.data.result,
@@ -98,8 +102,7 @@ class _MyScaffoldState extends State<MyScaffold> {
                 overflow: TextOverflow.fade,
               );
             }
-            return Icon(snap.hasError ? Icons.error : Icons.record_voice_over,
-                size: size.height * .07);
+            return Icon(Icons.record_voice_over, size: size.height * .07);
           },
         ),
       ),
