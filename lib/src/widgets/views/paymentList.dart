@@ -26,6 +26,7 @@ class _PaymentListState extends State<PaymentList> {
         onPressed: () {
           Provider.of<ActionProvider>(context,listen: false).setPage(PaymentView(
             uid: this.widget.uid,
+            check: true,
           ));
         },
       ),
