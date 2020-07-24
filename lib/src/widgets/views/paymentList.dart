@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/payment_check.dart';
 
 class PaymentList extends StatefulWidget {
   final String uid;
@@ -14,32 +17,24 @@ class _PaymentListState extends State<PaymentList> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        children: _buildList(this.widget.paymentsMethods),
+        children: _buildList(context, this.widget.paymentsMethods),
       ),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.payment),
-          backgroundColor: Colors.green,
-          onPressed: () {
-            Navigator.pushNamed(context, 'paymentMethod');
-          }),
     );
   }
 
-  List<Widget> _buildList(List data) {
+  List<Widget> _buildList(BuildContext context, List data) {
     List<Widget> tmp = List();
     data?.forEach((item) {
-      if (item.containsKey("email")) {
-        tmp.add(ListTile(
-          title: Text(item["email"]),
-          subtitle: Text(item["password"]),
-        ));
-      } else {
-        tmp.add(ListTile(
-          title: Text(item["cardNumber"]),
-          subtitle: Text(item["expiryDate"]),
-          onTap: () {},
-        ));
-      }
+      tmp.add(item.containsKey("email")
+          ? ListTile(
+              title: Text(item["email"]), subtitle: Text(item["password"]))
+          : ListTile(
+              title: Text(item["cardNumber"]),
+              subtitle: Text(item["expiryDate"]),
+              onTap: () {
+                Provider.of<ActionProvider>(context).setPage(PaymentCheck());
+              },
+            ));
     });
     return tmp;
   }
