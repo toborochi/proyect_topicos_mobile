@@ -10,13 +10,10 @@ import 'package:proyect_topicos_mobile/src/command/getpaymentmethodscommand.dart
 import 'package:proyect_topicos_mobile/src/command/getpromocommand.dart';
 import 'package:proyect_topicos_mobile/src/command/homepagecommand.dart';
 import 'package:proyect_topicos_mobile/src/command/manageordercommand.dart';
-import 'package:proyect_topicos_mobile/src/models/Category.dart';
 import 'package:proyect_topicos_mobile/src/models/Order.dart';
 import 'package:proyect_topicos_mobile/src/models/Product.dart';
-import 'package:proyect_topicos_mobile/src/providers/category.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/product.provider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/product.select.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/products_view.dart';
 
 class ActionProvider with ChangeNotifier {
   Widget _page;
@@ -232,8 +229,6 @@ class ActionProvider with ChangeNotifier {
         }
         break;
     }
-
-
     // Notifica al Scaffold
     notifyListeners();
   }
