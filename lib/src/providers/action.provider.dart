@@ -37,10 +37,9 @@ class ActionProvider with ChangeNotifier {
     if (w.runtimeType != _page.runtimeType) {
       _page = w;
     }*/
-     _page = w;
-     notifyListeners();
+    _page = w;
+    notifyListeners();
   }
-
 
   executeAction(GoogleCloudDialogflowV2QueryResult res) async {
     switch (res.action) {
@@ -57,14 +56,14 @@ class ActionProvider with ChangeNotifier {
               (item) => item.name.toLowerCase().contains(name.toLowerCase()));
         }
         */
-        _com = DeleteProductCommand(res,_pedido);
+        _com = DeleteProductCommand(res, _pedido);
         await _com.execute();
         break;
       case "edit_product":
-        _com = EditProductCommand(res,_pedido,setPage);
+        _com = EditProductCommand(res, _pedido, setPage);
         await _com.execute();
-        
-      /*
+
+        /*
         String name = res.parameters["producto"].toString();
         int c = int.tryParse(res.parameters["cantidad"].toString());
         if (name.isNotEmpty) {
@@ -98,14 +97,13 @@ class ActionProvider with ChangeNotifier {
 
         break;
       case "get_payment_methods":
-        _com = GetPaymentMethodsCommand(setPage,AuthService.instance.uid);
+        _com = GetPaymentMethodsCommand(setPage, AuthService.instance.uid);
         await _com.execute();
         //_setPage(PaymentView());
         break;
 
       case "get_category":
-
-        _com = GetCategoryCommand(res,_lastProductList,setPage);
+        _com = GetCategoryCommand(res, _lastProductList, setPage);
         await _com.execute();
         _lastProductList = await _com.getData();
 
@@ -130,8 +128,7 @@ class ActionProvider with ChangeNotifier {
         }*/
         break;
       case "get_promo":
-
-        _com = GetPromoCommand(_lastProductList,setPage);
+        _com = GetPromoCommand(_lastProductList, setPage);
         await _com.execute();
         _lastProductList = await _com.getData();
 
@@ -142,8 +139,7 @@ class ActionProvider with ChangeNotifier {
         break;
 
       case "get_name":
-
-        _com = GetNameCommand(res,_lastProductList,setPage);
+        _com = GetNameCommand(res, _lastProductList, setPage);
         await _com.execute();
         _lastProductList = await _com.getData();
 
@@ -156,8 +152,7 @@ class ActionProvider with ChangeNotifier {
         }*/
         break;
       case "manage_order":
-
-        _com = ManageOrderCommand(res,_pedido,setPage);
+        _com = ManageOrderCommand(res, _pedido, setPage);
         await _com.execute();
         /*
         String f = res.parameters["finish"];
@@ -185,7 +180,7 @@ class ActionProvider with ChangeNotifier {
         break;
       case "get_current_order":
         //_setPage(OrderView(cart: _pedido));
-        _com = CurrentOrderCommand(_pedido,setPage);
+        _com = CurrentOrderCommand(_pedido, setPage);
         await _com.execute();
 
         break;
@@ -204,15 +199,30 @@ class ActionProvider with ChangeNotifier {
               break;
             }
           }
-          if (c != null) {
-            _pedido.add(Item(
+
+          int i = _pedido.lastIndexWhere((element) =>
+              element.name.toLowerCase().contains(n.toLowerCase()));
+
+          if (i >=0) {
+            _pedido[i] = Item(
                 name: p.name,
                 productAmount: c * p.price,
                 productId: p.id,
                 productQuantity: c,
                 productSalePrice: c *
                     p.price *
-                    ((p.promo != null) ? (1 - p.promo.discount) : 1.0)));
+                    ((p.promo != null) ? (1 - p.promo.discount) : 1.0));
+          } else {
+            if (c != null) {
+              _pedido.add(Item(
+                  name: p.name,
+                  productAmount: c * p.price,
+                  productId: p.id,
+                  productQuantity: c,
+                  productSalePrice: c *
+                      p.price *
+                      ((p.promo != null) ? (1 - p.promo.discount) : 1.0)));
+            }
           }
 
           if (p != null) {
