@@ -89,7 +89,7 @@ class _MyScaffoldState extends State<MyScaffold> {
           stream: SpeechRecognizer.instance.dataStream,
           builder: (_, AsyncSnapshot<SpeechData> snap) {
             if (snap.hasData) {
-              if (snap.data != null) {
+              if (snap.data.result != null) {
                 return Text(
                   snap.data.result,
                   style: TextStyle(fontSize: 17),
