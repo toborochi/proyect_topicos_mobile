@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/payment_check.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/payment_view.dart';
 
 class PaymentList extends StatefulWidget {
   final String uid;
@@ -18,6 +19,15 @@ class _PaymentListState extends State<PaymentList> {
     return Scaffold(
       body: ListView(
         children: _buildList(context, this.widget.paymentsMethods),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.payment),
+        backgroundColor: Colors.green,
+        onPressed: () {
+          Provider.of<ActionProvider>(context).setPage(PaymentView(
+            uid: this.widget.uid,
+          ));
+        },
       ),
     );
   }
