@@ -40,14 +40,18 @@ class _PaymentListState extends State<PaymentList> {
           ? ListTile(
               title: Text(item["email"]), subtitle: Text(item["password"]),
               onTap: () {
-                Provider.of<ActionProvider>(context,listen: false).setPage(PaymentCheck());
+                Provider.of<ActionProvider>(context,listen: false).setPage(PaymentCheck(
+                  paymentID: item["id"],
+                ));
               },
               )
           : ListTile(
               title: Text(item["cardNumber"]),
               subtitle: Text(item["expiryDate"]),
               onTap: () {
-                Provider.of<ActionProvider>(context,listen: false).setPage(PaymentCheck());
+                Provider.of<ActionProvider>(context,listen: false).setPage(PaymentCheck(
+                  paymentID: item["id"],
+                ));
               },
             ));
     });
