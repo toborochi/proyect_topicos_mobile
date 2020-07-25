@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:proyect_topicos_mobile/src/models/Order.dart';
+import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 // import 'package:proyect_topicos_mobile/src/widgets/product_card.dart';
 import 'package:proyect_topicos_mobile/src/widgets/product_card_order.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/homepage.dart';
 
 class OrderDetail extends StatelessWidget {
   final Order order;
@@ -15,6 +18,9 @@ class OrderDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    var prov = Provider.of<ActionProvider>(context);
+
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
@@ -107,9 +113,36 @@ class OrderDetail extends StatelessWidget {
                 Text("Bs. ${_total()}")
               ],
           )),
+          _continueBuy(context,prov.setPage,prov.clearOrder)
           // button to pay
         ],
       ),
+    );
+  }
+
+    Widget _continueBuy(BuildContext context,Function view,Function clear) {
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Container(
+          alignment: Alignment.center,
+          height: MediaQuery.of(context).size.height / 4,
+          child: ButtonTheme(
+            minWidth: 200.0,
+            height: 40,
+            buttonColor: Colors.lightGreen,
+            child: RaisedButton(
+                child: Text("Continuar",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
+                onPressed: (){
+                    clear();
+                    view(HomePage());
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(40.0))),
+          )),
     );
   }
 

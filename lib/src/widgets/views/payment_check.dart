@@ -55,7 +55,6 @@ class _PaymentCheckState extends State<PaymentCheck> {
             );
             prov.setPage(OrderDetail(order: p,));
             
-            
         }else{
             print("FALSE");
         }

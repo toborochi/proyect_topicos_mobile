@@ -52,6 +52,10 @@ class ActionProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  clearOrder(){
+    _pedido.clear();
+  }
+
   executeAction(GoogleCloudDialogflowV2QueryResult res) async {
     switch (res.action) {
       case "home_page":
