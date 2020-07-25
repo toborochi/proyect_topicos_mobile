@@ -7,6 +7,7 @@ import 'package:proyect_topicos_mobile/src/providers/orderProvider.dart';
 import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:provider/provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/paymentMethod.provider.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/order_detail_view.dart';
 
 
 class PaymentCheck extends StatefulWidget {
@@ -32,7 +33,8 @@ class _PaymentCheckState extends State<PaymentCheck> {
       size: 80.0,
     );
 
-    Order p = Provider.of<ActionProvider>(context).getOrder();
+    var prov = Provider.of<ActionProvider>(context);
+    Order p = prov.getOrder();
 
     checkData(p).then((value) async {
         // ACA VA EL PUSH DE LA VISTA
@@ -51,9 +53,9 @@ class _PaymentCheckState extends State<PaymentCheck> {
                   )
                 )
             );
-
-    
-
+            prov.setPage(OrderDetail(order: p,));
+            
+            
         }else{
             print("FALSE");
         }
