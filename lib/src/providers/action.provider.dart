@@ -32,6 +32,7 @@ class ActionProvider with ChangeNotifier {
   getOrder() => _pedido;
   getProvider() => _s;
 
+
   setPage(Widget w) {
     /*
     if (w.runtimeType != _page.runtimeType) {

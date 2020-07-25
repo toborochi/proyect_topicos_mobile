@@ -4,7 +4,6 @@ import 'package:proyect_topicos_mobile/src/models/Order.dart';
 import 'package:proyect_topicos_mobile/src/providers/authservice.dart';
 import 'package:proyect_topicos_mobile/src/providers/orderProvider.dart';
 import 'package:proyect_topicos_mobile/src/providers/paymentMethod.provider.dart';
-import 'package:proyect_topicos_mobile/src/widgets/views/order_detail_view.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/paymentList.dart';
 
 class ManageOrderCommand implements Command {
@@ -26,6 +25,8 @@ class ManageOrderCommand implements Command {
     String c = _res.parameters["cancel"];
 
     if (f.length > 0) {
+      
+      /*
       Order o = Order(
           item: _pedido,
           date: DateTime.now().millisecondsSinceEpoch,
@@ -33,15 +34,15 @@ class ManageOrderCommand implements Command {
           userId: AuthService.instance.uid,
           amount: _amount());
 
-      Map<String, dynamic> ord = await OrderProvider.instance.saveOrder(o);
-      print(ord);
+      if (_pedido.length > 0) {
+        Map<String, dynamic> ord = await OrderProvider.instance.saveOrder(o);
+        print(ord);
+      }*/
 
-      List<dynamic> p = await PaymentProvider.instance.getPaymentMethods(AuthService.instance.uid);
+      List<dynamic> p = await PaymentProvider.instance
+          .getPaymentMethods(AuthService.instance.uid);
 
-      _viewPage(PaymentList(
-         uid: AuthService.instance.uid,
-         paymentsMethods: p
-      ));
+      _viewPage(PaymentList(uid: AuthService.instance.uid, paymentsMethods: p));
 
       /*
       _viewPage(OrderDetail(

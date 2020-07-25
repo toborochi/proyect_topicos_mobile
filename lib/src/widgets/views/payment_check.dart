@@ -9,10 +9,15 @@ class PaymentCheck extends StatefulWidget {
 class _PaymentCheckState extends State<PaymentCheck> {
   @override
   Widget build(BuildContext context) {
+
+
     final spinkit = SpinKitRing(
       color: Colors.white,
       size: 80.0,
     );
+
+    
+
 
     return Container(
         color: Colors.green,
