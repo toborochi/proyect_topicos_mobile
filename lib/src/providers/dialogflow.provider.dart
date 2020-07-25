@@ -63,6 +63,7 @@ class DialogProvider {
   _processResponse(GoogleCloudDialogflowV2DetectIntentResponse res) {
     Reader.instance.textToSpeech(res.outputAudio);
 
+    // Paso de accion al actionProvider
     _provider.executeAction(res.queryResult);
 
     _responseStreamController.sink.add(res);

@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 
 Payment paymentFromJson(String str) => Payment.fromJson(json.decode(str));
 
