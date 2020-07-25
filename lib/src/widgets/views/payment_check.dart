@@ -7,6 +7,12 @@ import 'package:provider/provider.dart';
 
 
 class PaymentCheck extends StatefulWidget {
+
+
+  String paymentID;
+
+  PaymentCheck(this.paymentID);
+
   @override
   _PaymentCheckState createState() => _PaymentCheckState();
 }
