@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 Payment paymentFromJson(String str) => Payment.fromJson(json.decode(str));
 
 String paymentToJson(Payment data) => json.encode(data.toJson());
@@ -14,9 +16,9 @@ class Payment {
     this.paymetMethodId,
   });
 
-  int amount;
+  double amount;
   Bill bill;
-  String date;
+  int date;
   String description;
   String orderId;
   String paymetMethodId;
@@ -52,7 +54,7 @@ class Bill {
   });
 
   double amount;
-  String dateEmission;
+  int dateEmission;
   String description;
 
   factory Bill.fromJson(Map<String, dynamic> json) {

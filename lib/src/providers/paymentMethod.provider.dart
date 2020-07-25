@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter_credit_card/credit_card_model.dart';
+import 'package:proyect_topicos_mobile/src/models/Payment.dart';
 import 'package:proyect_topicos_mobile/src/models/PaypalAccount.dart';
 
 class PaymentProvider {
@@ -58,5 +59,21 @@ class PaymentProvider {
     return tmp;
   }
 
+   Future<Map<String, dynamic>> createPayment(Payment p) async {
+     Map<String, dynamic> tmp = Map<String, dynamic>();
+    try{
+         final res = await http.post(
+        "$_url/api/payments/",
+        body: jsonEncode(p.toJson()),
+        headers: {"Content-Type": "application/json"}
+      );
+
+      tmp = json.decode(res.body);
+    }catch(e){
+      print(e);
+    }
+    return tmp;
+  }
+  
   dispose() => _paymentStreamController?.close();
 }
