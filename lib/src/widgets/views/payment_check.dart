@@ -7,6 +7,12 @@ class PaymentCheck extends StatefulWidget {
 }
 
 class _PaymentCheckState extends State<PaymentCheck> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final spinkit = SpinKitRing(
