@@ -29,7 +29,21 @@ class ActionProvider with ChangeNotifier {
   }
 
   getWidget() => _page;
-  getOrder() => _pedido;
+  getOrder() {
+    return Order(
+        item: _pedido,
+        date: DateTime.now().millisecondsSinceEpoch,
+        clientId: AuthService.instance.uid,
+        userId: AuthService.instance.uid,
+        amount: _amount());
+  }
+
+  double _amount() {
+    double tmp = 0;
+    _pedido?.forEach((item) => tmp += item.productAmount);
+    return tmp;
+  }
+
   getProvider() => _s;
 
   setPage(Widget w) {
