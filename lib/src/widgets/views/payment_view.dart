@@ -18,7 +18,7 @@ class _PaymentViewState extends State<PaymentView>
     with SingleTickerProviderStateMixin {
   final List<Widget> myTabs = <Widget>[
     Tab(
-        child: Row(
+      child: Row(
       children: <Widget>[
         Icon(Brandico.visa),
         Spacer(),

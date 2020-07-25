@@ -35,13 +35,11 @@ class ManageOrderCommand implements Command {
 
       Map<String, dynamic> ord = await OrderProvider.instance.saveOrder(o);
       print(ord);
+      print("DEBUG");
+      List<dynamic> p = await PaymentProvider.instance
+          .getPaymentMethods(AuthService.instance.uid);
 
-      List<dynamic> p = await PaymentProvider.instance.getPaymentMethods(AuthService.instance.uid);
-
-      _viewPage(PaymentList(
-         uid: AuthService.instance.uid,
-         paymentsMethods: p
-      ));
+      _viewPage(PaymentList(uid: AuthService.instance.uid, paymentsMethods: p));
 
       /*
       _viewPage(OrderDetail(

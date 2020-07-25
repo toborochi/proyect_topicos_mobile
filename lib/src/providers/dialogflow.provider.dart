@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:googleapis_auth/auth_io.dart';
 import 'package:googleapis/dialogflow/v2.dart';
-import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/speechProvider.dart';
+import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 
 class DialogProvider {
   ActionProvider _provider;
@@ -13,8 +13,8 @@ class DialogProvider {
   static DialogProvider get instance => _instance;
 
   final _scopes = [
+    DialogflowApi.DialogflowScope,
     DialogflowApi.CloudPlatformScope,
-    DialogflowApi.DialogflowScope
   ];
 
   StreamController<GoogleCloudDialogflowV2DetectIntentResponse>
@@ -28,12 +28,12 @@ class DialogProvider {
   AutoRefreshingAuthClient _client;
 
   init(ActionProvider p, String sessionID) {
+    _sessionID = sessionID;
     this._provider = p;
     _responseStreamController = StreamController<
         GoogleCloudDialogflowV2DetectIntentResponse>.broadcast();
     rootBundle.loadString('assets/credentials.json').then((string) {
       var json = jsonDecode(string);
-      _sessionID = sessionID;
       _projectID = json["project_id"];
 
       clientViaServiceAccount(ServiceAccountCredentials.fromJson(json), _scopes)
