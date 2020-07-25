@@ -25,7 +25,7 @@ class ManageOrderCommand implements Command {
     String c = _res.parameters["cancel"];
 
     if (f.length > 0) {
-      
+
       /*
       Order o = Order(
           item: _pedido,

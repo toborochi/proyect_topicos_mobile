@@ -49,7 +49,9 @@ class PaymentProvider {
     try {
       var res = await http.get("$_url/api/paymentMethods/$userID/$userID");
       List data = json.decode(res.body);
-      data?.forEach((item) => tmp.add(item));
+      data?.forEach((item) {
+        tmp.add(item);
+      });
     } catch (e) {
       print(e);
     }
