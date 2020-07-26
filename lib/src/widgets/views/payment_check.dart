@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:proyect_topicos_mobile/src/models/Order.dart';
 import 'package:proyect_topicos_mobile/src/models/Payment.dart';
-// import 'package:proyect_topicos_mobile/src/models/Order.dart';
 import 'package:proyect_topicos_mobile/src/providers/orderProvider.dart';
 import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
+
 import 'package:provider/provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/paymentMethod.provider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/order_detail_view.dart';
+import 'package:proyect_topicos_mobile/src/widgets/views/order_view.dart';
 
 
 class PaymentCheck extends StatefulWidget {
   final String paymentID;
-  PaymentCheck({this.paymentID});
+  final String typePayment;
+  final dynamic payment;
+  PaymentCheck({this.paymentID,this.payment,this.typePayment});
 
   @override
   _PaymentCheckState createState() => _PaymentCheckState();
@@ -53,10 +56,19 @@ class _PaymentCheckState extends State<PaymentCheck> {
                   )
                 )
             );
+
+              /*
+              if(this.widget.typePayment=="card"){
+                await PaymentProvider.instance.stripePayment(this.widget.payment);
+              }else{
+                await PaymentProvider.instance.paypalPayment(this.widget.payment);
+              }*/
+            
+            // Cambiar Vista a Detalles del pedido
             prov.setPage(OrderDetail(order: p,));
             
         }else{
-            print("FALSE");
+            prov.setPage(OrderView(cart: p.item,));
         }
     });
 
@@ -90,4 +102,5 @@ class _PaymentCheckState extends State<PaymentCheck> {
     }
     return "";
   }
+
 }

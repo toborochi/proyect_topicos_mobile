@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:proyect_topicos_mobile/src/providers/action.provider.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/payment_check.dart';
 import 'package:proyect_topicos_mobile/src/widgets/views/payment_view.dart';
+import 'package:proyect_topicos_mobile/src/models/PaypalAccount.dart';
+import 'package:proyect_topicos_mobile/src/models/CreditCard.dart';
 
 class PaymentList extends StatefulWidget {
   final String uid;
@@ -42,6 +44,8 @@ class _PaymentListState extends State<PaymentList> {
               onTap: () {
                 Provider.of<ActionProvider>(context,listen: false).setPage(PaymentCheck(
                   paymentID: item["id"],
+                  typePayment: "paypal",
+                  payment: item
                 ));
               },
               )
@@ -51,6 +55,8 @@ class _PaymentListState extends State<PaymentList> {
               onTap: () {
                 Provider.of<ActionProvider>(context,listen: false).setPage(PaymentCheck(
                   paymentID: item["id"],
+                  typePayment: "card",
+                   payment: item
                 ));
               },
             ));

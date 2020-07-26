@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter_credit_card/credit_card_model.dart';
+import 'package:proyect_topicos_mobile/src/models/CreditCard.dart';
 import 'package:proyect_topicos_mobile/src/models/Payment.dart';
 import 'package:proyect_topicos_mobile/src/models/PaypalAccount.dart';
 
@@ -15,6 +16,34 @@ class PaymentProvider {
 
   init() {
     _paymentStreamController = StreamController<List<dynamic>>.broadcast();
+  }
+
+  Future<Map<String, dynamic>> stripePayment(CreditCard c) async {
+    Map<String, dynamic> tmp = Map<String, dynamic>();
+    try {
+      final res = await http.post("$_url/api/stripe/payment",
+          body: jsonEncode(c.toJson()),
+          headers: {"Content-Type": "application/json"});
+
+      tmp = json.decode(res.body);
+    } catch (e) {
+      print(e);
+    }
+    return tmp;
+  }
+
+    Future<Map<String, dynamic>> paypalPayment(PaypalAccount c) async {
+    Map<String, dynamic> tmp = Map<String, dynamic>();
+    try {
+      final res = await http.post("$_url/api/paypal/payment",
+          body: jsonEncode(c.toJson()),
+          headers: {"Content-Type": "application/json"});
+
+      tmp = json.decode(res.body);
+    } catch (e) {
+      print(e);
+    }
+    return tmp;
   }
 
   createCreditCard(String userID, CreditCardModel creditCardModel) async {
@@ -59,21 +88,19 @@ class PaymentProvider {
     return tmp;
   }
 
-   Future<Map<String, dynamic>> createPayment(Payment p) async {
-     Map<String, dynamic> tmp = Map<String, dynamic>();
-    try{
-         final res = await http.post(
-        "$_url/api/payments/",
-        body: jsonEncode(p.toJson()),
-        headers: {"Content-Type": "application/json"}
-      );
+  Future<Map<String, dynamic>> createPayment(Payment p) async {
+    Map<String, dynamic> tmp = Map<String, dynamic>();
+    try {
+      final res = await http.post("$_url/api/payments/",
+          body: jsonEncode(p.toJson()),
+          headers: {"Content-Type": "application/json"});
 
       tmp = json.decode(res.body);
-    }catch(e){
+    } catch (e) {
       print(e);
     }
     return tmp;
   }
-  
+
   dispose() => _paymentStreamController?.close();
 }

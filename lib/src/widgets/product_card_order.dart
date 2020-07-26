@@ -28,7 +28,7 @@ class ProductCardOrder extends StatelessWidget {
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 Spacer(),
-                Text("${item.productAmount}",
+                Text(item.productAmount.toStringAsFixed(2),
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 Icon(

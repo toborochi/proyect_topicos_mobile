@@ -134,7 +134,7 @@ class ActionProvider with ChangeNotifier {
                     p.price *
                     ((p.promo != null) ? (1 - p.promo.discount) : 1.0));
           } else {
-            if (c != null) {
+            if (c !=null && c<=p.stock && c>0) {
               _pedido.add(Item(
                   name: p.name,
                   productAmount: c * p.price,
